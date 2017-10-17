@@ -23,6 +23,10 @@ int main(int, char*[]) {
 	if (bgTexture == nullptr) throw "No s'han pogut crear les textures";
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
+	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
+	if (playerTexture == nullptr)throw"No s'han pogut crear les textures";
+	SDL_Rect playerRect{ 0,0,350,189 };
+
 	// --- SPRITES ---
 
 		// --- Animated Sprite ---
@@ -40,6 +44,7 @@ int main(int, char*[]) {
 			switch (event.type) {
 			case SDL_QUIT:		isRunning = false; break;
 			case SDL_KEYDOWN:	if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false; break;
+			case SDL_MOUSEMOTION:playerRect.x = event.motion.x; playerRect.y = event.motion.y; break;
 			default:;
 			}
 		}
@@ -50,8 +55,8 @@ int main(int, char*[]) {
 			//Background
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, bgTexture, nullptr, &bgRect);
-		SDL_RenderPresent(renderer);
 			//Animated Sprite
+		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
 		SDL_RenderPresent(renderer);
 
 	}
@@ -60,6 +65,7 @@ int main(int, char*[]) {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_DestroyTexture(bgTexture);
+	SDL_DestroyTexture(playerTexture);
 
 	// --- QUIT ---
 	IMG_Quit();
