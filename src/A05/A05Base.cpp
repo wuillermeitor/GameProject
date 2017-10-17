@@ -1,6 +1,7 @@
 #include <SDL.h>		// Always needs to be included for an SDL app
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 //Game general information
 #define SCREEN_WIDTH 800
@@ -13,6 +14,9 @@ int main(int, char*[]) {
 	const Uint8 imgFlags{ IMG_INIT_PNG | IMG_INIT_JPG };
 	if (!(IMG_Init(imgFlags) & imgFlags)) throw "Error: SDL_image init";
 	if (TTF_Init() != 0)throw"nanai";
+
+	const Uint8 mixFlags{ MIX_INIT_MP3 | MIX_INIT_OGG };
+	if (!(Mix_Init(mixFlags) & mixFlags))throw"Error:SDL_mixer init";
 
 	// --- WINDOW ---
 	SDL_Window *window{ SDL_CreateWindow("SDL...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN) };
@@ -45,6 +49,13 @@ int main(int, char*[]) {
 	TTF_CloseFont(font);
 
 	// --- AUDIO ---
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
+		throw"Unable o initialize SDL_mixer audio systems";
+	}
+	Mix_Music *soundtrack{ Mix_LoadMUS("../../res/au/mainTheme.mp3") };
+	if (!soundtrack) throw "Unable to load the Mix_Music soundtrack";
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+	Mix_PlayMusic(soundtrack, -1);
 
 	// --- GAME LOOP ---
 	SDL_Event event;
@@ -90,6 +101,9 @@ int main(int, char*[]) {
 	// --- QUIT ---
 	TTF_Quit();
 	IMG_Quit();
+	Mix_Quit();
+	Mix_CloseAudio();
+	Mix_Quit();
 	SDL_Quit();
 	return 0;
 }
