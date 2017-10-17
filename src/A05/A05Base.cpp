@@ -37,10 +37,10 @@ int main(int, char*[]) {
 	// --- TEXT ---
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
 	if (font == nullptr)throw"no es pot inicialitzar ttf font";
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "My first SDL Game", SDL_Color{255, 150, 0, 255}) };
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "OMAE WA MO SHINDEIRU", SDL_Color{244, 150, 0, 255}) };
 	if (tmpSurf == nullptr)TTF_CloseFont(font), throw "Unable to create the sdl text surface";
 	SDL_Texture *textTexture{ SDL_CreateTextureFromSurface(renderer, tmpSurf) };
-	SDL_Rect textRect{ 100, 50, tmpSurf->w, tmpSurf->h };
+	SDL_Rect textRect{50, 50, tmpSurf->w, tmpSurf->h };
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
 
@@ -64,8 +64,8 @@ int main(int, char*[]) {
 		}
 
 		// UPDATE
-		playerRect.x += playerTarget.x;
-		playerRect.y += playerTarget.y;
+		playerRect.x += (playerTarget.x - playerRect.x) /10;
+		playerRect.y += (playerTarget.y - playerRect.y) /10;
 		// DRAW
 			//Background
 		SDL_RenderClear(renderer);
