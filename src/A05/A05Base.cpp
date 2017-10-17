@@ -30,9 +30,9 @@ int main(int, char*[]) {
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
-	if (playerTexture == nullptr)throw"No s'han pogut crear les textures";
-	SDL_Rect playerRect{ 0,0,350,189 };
-	SDL_Rect playerTarget{ 0,0,100,100 };
+	if (playerTexture == nullptr)throw "No s'han pogut crear les textures";
+	SDL_Rect playerRect{ 0,0,175,94.5 };
+	SDL_Rect playerTarget{ 0,0,50,47.25 };
 
 	// --- SPRITES ---
 
@@ -50,7 +50,7 @@ int main(int, char*[]) {
 
 	// --- AUDIO ---
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
-		throw"Unable o initialize SDL_mixer audio systems";
+		throw "Unable o initialize SDL_mixer audio systems";
 	}
 	Mix_Music *soundtrack{ Mix_LoadMUS("../../res/au/mainTheme.mp3") };
 	if (!soundtrack) throw "Unable to load the Mix_Music soundtrack";
@@ -64,19 +64,16 @@ int main(int, char*[]) {
 		// HANDLE EVENTS
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_QUIT:		isRunning = false; break;
+			case SDL_QUIT:	isRunning = false; break;
 			case SDL_KEYDOWN:	if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false; break;
-			case SDL_MOUSEMOTION:
-				playerTarget.x = event.motion.x-50;
-				playerTarget.y = event.motion.y-50;
-				break;
+			case SDL_MOUSEMOTION:	playerTarget.x = event.motion.x- 50; playerTarget.y = event.motion.y- 47.25; break;
 			default:;
 			}
 		}
 
 		// UPDATE
-		playerRect.x += (playerTarget.x - playerRect.x) /10;
-		playerRect.y += (playerTarget.y - playerRect.y) /10;
+		playerRect.x += (playerTarget.x - playerRect.x)/5;
+		playerRect.y += (playerTarget.y - playerRect.y)/5;
 		// DRAW
 			//Background
 		SDL_RenderClear(renderer);
