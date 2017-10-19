@@ -29,19 +29,19 @@ int main(int, char*[]) {
 	if (bgTexture == nullptr) throw "No s'han pogut crear les textures";
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
+
+	// --- SPRITES ---
 	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
 	if (playerTexture == nullptr)throw "No s'han pogut crear les textures";
 	SDL_Rect playerRect{ 0,0,175,94 };
 	SDL_Rect playerTarget{ 0,0,50,47 };
-
-	// --- SPRITES ---
 
 		// --- Animated Sprite ---
 
 	// --- TEXT ---
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
 	if (font == nullptr)throw"no es pot inicialitzar ttf font";
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "OMAE WA MO SHINDEIRU", SDL_Color{244, 150, 0, 255}) };
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "OMAE WA MO SHINDEIRU", SDL_Color{255, 0, 0, 255}) };
 	if (tmpSurf == nullptr)TTF_CloseFont(font), throw "Unable to create the sdl text surface";
 	SDL_Texture *textTexture{ SDL_CreateTextureFromSurface(renderer, tmpSurf) };
 	SDL_Rect textRect{50, 50, tmpSurf->w, tmpSurf->h };
@@ -100,7 +100,6 @@ int main(int, char*[]) {
 	IMG_Quit();
 	Mix_Quit();
 	Mix_CloseAudio();
-	Mix_Quit();
 	SDL_Quit();
 	return 0;
 }
