@@ -31,8 +31,8 @@ int main(int, char*[]) {
 
 	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
 	if (playerTexture == nullptr)throw "No s'han pogut crear les textures";
-	SDL_Rect playerRect{ 0,0,175,94.5 };
-	SDL_Rect playerTarget{ 0,0,50,47.25 };
+	SDL_Rect playerRect{ 0,0,175,94 };
+	SDL_Rect playerTarget{ 0,0,50,47 };
 
 	// --- SPRITES ---
 
@@ -66,7 +66,7 @@ int main(int, char*[]) {
 			switch (event.type) {
 			case SDL_QUIT:	isRunning = false; break;
 			case SDL_KEYDOWN:	if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false; break;
-			case SDL_MOUSEMOTION:	playerTarget.x = event.motion.x- 50; playerTarget.y = event.motion.y- 47.25; break;
+			case SDL_MOUSEMOTION:	playerTarget.x = event.motion.x- 50; playerTarget.y = event.motion.y- 47; break;
 			default:;
 			}
 		}
