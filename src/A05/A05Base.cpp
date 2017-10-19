@@ -6,6 +6,7 @@
 //Game general information
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define FPS 60
 
 int main(int, char*[]) {
 
@@ -31,12 +32,25 @@ int main(int, char*[]) {
 
 
 	// --- SPRITES ---
+	/*
 	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
 	if (playerTexture == nullptr)throw "No s'han pogut crear les textures";
 	SDL_Rect playerRect{ 0,0,175,94 };
 	SDL_Rect playerTarget{ 0,0,50,47 };
+	*/
 
 		// --- Animated Sprite ---
+	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/sp01.png") };
+	SDL_Rect playerRect, PlayerPosition;
+	int textWidth, textHeight, frameWidth, frameHeight;
+	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
+	frameWidth = textWidth / 6;
+	frameHeight = textHeight / 1;
+	PlayerPosition.x = PlayerPosition.y = 0;
+	playerRect.x = playerRect.y = 0;
+	PlayerPosition.h = playerRect.h = frameHeight;
+	PlayerPosition.w = playerRect.w = frameWidth;
+	int frameTime = 0;
 
 	// --- TEXT ---
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
@@ -66,20 +80,33 @@ int main(int, char*[]) {
 			switch (event.type) {
 			case SDL_QUIT:	isRunning = false; break;
 			case SDL_KEYDOWN:	if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false; break;
+			/*
 			case SDL_MOUSEMOTION:	playerTarget.x = event.motion.x- 50; playerTarget.y = event.motion.y- 47; break;
+			*/
 			default:;
 			}
 		}
 
 		// UPDATE
+		frameTime++;
+		if (FPS / frameTime <= 9) {
+			frameTime = 0;
+			playerRect.x += frameWidth;
+			if (playerRect.x >= textWidth)
+				playerRect.x = 0;
+		}
+		/*
 		playerRect.x += (playerTarget.x - playerRect.x)/5;
 		playerRect.y += (playerTarget.y - playerRect.y)/5;
+		*/
 		// DRAW
 			//Background
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, bgTexture, nullptr, &bgRect);
 			//Animated Sprite
-		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
+		SDL_RenderCopy(renderer, playerTexture, &playerRect, &PlayerPosition);
+
+		//SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
 
 		SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
 
