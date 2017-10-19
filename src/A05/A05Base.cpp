@@ -88,7 +88,21 @@ int main(int, char*[]) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:	isRunning = false; break;
-			case SDL_KEYDOWN:	if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false; break;
+			case SDL_KEYDOWN:	
+				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
+				else if (event.key.keysym.sym == SDLK_d) {
+					PlayerPosition.x += 10;
+				}
+				else if (event.key.keysym.sym == SDLK_a) {
+					PlayerPosition.x -= 10;
+				}
+				else if (event.key.keysym.sym == SDLK_w) {
+					PlayerPosition.y -= 10;
+				}
+				else if (event.key.keysym.sym == SDLK_s) {
+					PlayerPosition.y += 10;
+				}
+				break;
 			/*
 			case SDL_MOUSEMOTION:	playerTarget.x = event.motion.x- 50; playerTarget.y = event.motion.y- 47; break;
 			*/
