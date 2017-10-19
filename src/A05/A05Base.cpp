@@ -2,6 +2,9 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include <iostream>
+#include <time.h>
+
 
 //Game general information
 #define SCREEN_WIDTH 800
@@ -46,7 +49,8 @@ int main(int, char*[]) {
 	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
 	frameWidth = textWidth / 6;
 	frameHeight = textHeight / 1;
-	PlayerPosition.x = PlayerPosition.y = 0;
+	PlayerPosition.x = 0;
+	PlayerPosition.y = 200;
 	playerRect.x = playerRect.y = 0;
 	PlayerPosition.h = playerRect.h = frameHeight;
 	PlayerPosition.w = playerRect.w = frameWidth;
@@ -71,6 +75,11 @@ int main(int, char*[]) {
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
 	Mix_PlayMusic(soundtrack, -1);
 
+	// --- TIME ---
+	clock_t lastTime = clock();
+	float timeDown = 10.;
+	float deltaTime = 0;
+
 	// --- GAME LOOP ---
 	SDL_Event event;
 	bool isRunning = true;
@@ -88,8 +97,14 @@ int main(int, char*[]) {
 		}
 
 		// UPDATE
+		deltaTime = (clock() - lastTime);
+		lastTime = clock();
+		deltaTime /= CLOCKS_PER_SEC;
+		timeDown -= deltaTime;
+		std::cout << timeDown << std::endl;
+
 		frameTime++;
-		if (FPS / frameTime <= 9) {
+		if (FPS / frameTime <= 10) {
 			frameTime = 0;
 			playerRect.x += frameWidth;
 			if (playerRect.x >= textWidth)
