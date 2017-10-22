@@ -4,12 +4,13 @@
 #include <SDL_mixer.h>
 #include <iostream>
 #include <time.h>
-
+#include <vector>
 
 //Game general information
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define FPS 60
+int cambio = 1;
 
 int main(int, char*[]) {
 
@@ -23,7 +24,7 @@ int main(int, char*[]) {
 	if (!(Mix_Init(mixFlags) & mixFlags))throw"Error:SDL_mixer init";
 
 	// --- WINDOW ---
-	SDL_Window *window{ SDL_CreateWindow("SDL...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN) };
+	SDL_Window *window{ SDL_CreateWindow("Mini-Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN) };
 	if (window == nullptr) throw "No es pot inicialitzar SDL_Window";
 
 	// --- RENDERER ---
@@ -31,16 +32,18 @@ int main(int, char*[]) {
 	if (renderer == nullptr) throw "No es pot inicialitzar SDL_Renderer";
 	SDL_Texture *bgTexture{ IMG_LoadTexture(renderer, "../../res/img/bgCastle.jpg") };
 	if (bgTexture == nullptr) throw "No s'han pogut crear les textures";
-	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
+	SDL_Rect bgRect{ 0,0,1064, SCREEN_HEIGHT };
 
 
 	// --- SPRITES ---
-	/*
-	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
-	if (playerTexture == nullptr)throw "No s'han pogut crear les textures";
-	SDL_Rect playerRect{ 0,0,175,94 };
-	SDL_Rect playerTarget{ 0,0,50,47 };
-	*/
+	SDL_Texture *goldTexture{ IMG_LoadTexture(renderer, "../../res/img/gold.png") };
+	if (goldTexture == nullptr)throw "No s'han pogut crear les textures";
+	std::vector<SDL_Rect>goldRect;
+	goldRect.push_back({ 300,400,75,56 });
+	goldRect.push_back({ 250,500,75,56 });
+	goldRect.push_back({ 700,300,75,56 });
+	goldRect.push_back({ 500,150,75,56 });
+	goldRect.push_back({ 100,200,75,56 });
 
 	// --- Animated Sprite ---
 	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/spCastle.png") };
@@ -49,11 +52,14 @@ int main(int, char*[]) {
 	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
 	frameWidth = textWidth / 12;
 	frameHeight = textHeight / 8;
-	PlayerPosition.x = 0;
-	PlayerPosition.y = 200;
-	playerRect.x = playerRect.y = 0;
-	PlayerPosition.h = playerRect.h = frameHeight;
-	PlayerPosition.w = playerRect.w = frameWidth;
+	PlayerPosition.x = 200;
+	PlayerPosition.y = 300;
+	playerRect.x = frameWidth * 3;
+	playerRect.y = 0;
+	PlayerPosition.h = 100;
+	playerRect.h = frameHeight;
+	PlayerPosition.w = 100;
+	playerRect.w = frameWidth;
 	int frameTime = 0;
 
 	// --- TEXT ---
@@ -73,7 +79,7 @@ int main(int, char*[]) {
 	Mix_Music *soundtrack{ Mix_LoadMUS("../../res/au/mainTheme3.mp3") };
 	if (!soundtrack) throw "Unable to load the Mix_Music soundtrack";
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
-	Mix_PlayMusic(soundtrack, -1);
+	//Mix_PlayMusic(soundtrack, -1);
 
 	// --- TIME ---
 	/*
@@ -92,16 +98,20 @@ int main(int, char*[]) {
 			case SDL_QUIT:	isRunning = false; break;
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
-				else if (event.key.keysym.sym == SDLK_d && PlayerPosition.x+frameWidth < SCREEN_WIDTH) {
+				else if (event.key.keysym.sym == SDLK_d && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
+					playerRect.y = frameHeight * 2;
 					PlayerPosition.x += 10;
 				}
 				else if (event.key.keysym.sym == SDLK_a && PlayerPosition.x > 0) {
+					playerRect.y = frameHeight;
 					PlayerPosition.x -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_w && PlayerPosition.y > 0) {
+				else if (event.key.keysym.sym == SDLK_w && PlayerPosition.y > 170) {
+					playerRect.y = frameHeight * 3;
 					PlayerPosition.y -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_s && PlayerPosition.y+frameHeight < SCREEN_HEIGHT) {
+				else if (event.key.keysym.sym == SDLK_s && PlayerPosition.y + PlayerPosition.h < SCREEN_HEIGHT) {
+					playerRect.y = frameHeight * 0;
 					PlayerPosition.y += 10;
 				}
 				break;
@@ -121,10 +131,14 @@ int main(int, char*[]) {
 		frameTime++;
 		if (FPS / frameTime <= 10) {
 			frameTime = 0;
-			playerRect.x += frameWidth;
-			if (playerRect.x >= textWidth/4)
-				playerRect.x = 0;
+			if (playerRect.x == frameWidth*5)
+				cambio = -1;
+			else if (playerRect.x == frameWidth*3)
+				cambio = 1;
+			playerRect.x += frameWidth*cambio;
+
 		}
+
 		/*
 		playerRect.x += (playerTarget.x - playerRect.x)/5;
 		playerRect.y += (playerTarget.y - playerRect.y)/5;
@@ -136,7 +150,11 @@ int main(int, char*[]) {
 		//Animated Sprite
 		SDL_RenderCopy(renderer, playerTexture, &playerRect, &PlayerPosition);
 
-		//SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
+		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[0]);
+		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[1]);
+		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[2]);
+		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[3]);
+		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[4]);
 
 		//SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
 
@@ -150,6 +168,7 @@ int main(int, char*[]) {
 	SDL_DestroyWindow(window);
 	SDL_DestroyTexture(bgTexture);
 	SDL_DestroyTexture(playerTexture);
+	SDL_DestroyTexture(goldTexture);
 	SDL_DestroyTexture(textTexture);
 
 	// --- QUIT ---
