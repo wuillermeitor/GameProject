@@ -11,11 +11,14 @@
 #define SCREEN_HEIGHT 600
 #define FPS 60
 int cambio = 1;
+enum class GameState { PLAY, EXIT, MENU };
+GameState gamestat = GameState::MENU;
+int mouse_x, mouse_y;
+int player1Counter = 0;
 
-int main(int, char*[]) {
 
-	// --- INIT ---
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) throw "No es pot inicialitzar SDL subsystems";
+void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
+
 	const Uint8 imgFlags{ IMG_INIT_PNG | IMG_INIT_JPG };
 	if (!(IMG_Init(imgFlags) & imgFlags)) throw "Error: SDL_image init";
 	if (TTF_Init() != 0)throw"nanai";
@@ -23,17 +26,73 @@ int main(int, char*[]) {
 	const Uint8 mixFlags{ MIX_INIT_MP3 | MIX_INIT_OGG };
 	if (!(Mix_Init(mixFlags) & mixFlags))throw"Error:SDL_mixer init";
 
-	// --- WINDOW ---
-	SDL_Window *window{ SDL_CreateWindow("Mini-Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN) };
-	if (window == nullptr) throw "No es pot inicialitzar SDL_Window";
-
-	// --- RENDERER ---
-	SDL_Renderer *renderer{ SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC) };
-	if (renderer == nullptr) throw "No es pot inicialitzar SDL_Renderer";
-	SDL_Texture *bgTexture{ IMG_LoadTexture(renderer, "../../res/img/bgCastle.jpg") };
+	SDL_Texture *bgTexture{ IMG_LoadTexture(renderer, "../../res/img/bg.jpg") };
 	if (bgTexture == nullptr) throw "No s'han pogut crear les textures";
 	SDL_Rect bgRect{ 0,0,1064, SCREEN_HEIGHT };
 
+	SDL_Texture *kinton{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
+	if (kinton == nullptr)throw "No s'han pogut crear les textures";
+	SDL_Rect kintonRect{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 350, 189 };
+
+	// --- GAME LOOP ---
+	SDL_Event menuevent;
+	while (gamestat == GameState::MENU) {
+		// HANDLE EVENTS
+			while (SDL_PollEvent(&menuevent)) {
+				switch (menuevent.type) {
+				case SDL_KEYDOWN:
+					if (menuevent.key.keysym.sym == SDLK_RETURN) {
+						std::cout << "has pulsado enter" << std::endl;
+						gamestat = GameState::PLAY;
+					}
+				}
+			}
+		/*
+		if (event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			if (event.button.button == SDL_BUTTON_LEFT)
+			{
+				std::cout << "has hecho click" << std::endl;
+				mouse_x = event.button.x;
+				mouse_y = event.button.y;
+				if ((mouse_x >= kintonRect.x) && (mouse_y >= kintonRect.y) && (mouse_x <= kintonRect.w) && (mouse_y <= kintonRect.h))
+				{
+					gamestat = GameState::PLAY;
+				}
+			}
+		}
+		*/
+
+		// DRAW
+		//Background
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, bgTexture, nullptr, &bgRect);
+		//Animated Sprite
+		SDL_RenderCopy(renderer, kinton, nullptr, &kintonRect);
+
+		SDL_RenderPresent(renderer);
+	}
+
+	// --- DESTROY ---
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_DestroyTexture(bgTexture);
+	SDL_DestroyTexture(kinton);
+}
+
+void game(SDL_Window *window, SDL_Renderer *renderer) {
+	srand(time(NULL));
+
+	const Uint8 imgFlags{ IMG_INIT_PNG | IMG_INIT_JPG };
+	if (!(IMG_Init(imgFlags) & imgFlags)) throw "Error: SDL_image init";
+	if (TTF_Init() != 0)throw"nanai";
+
+	const Uint8 mixFlags{ MIX_INIT_MP3 | MIX_INIT_OGG };
+	if (!(Mix_Init(mixFlags) & mixFlags))throw"Error:SDL_mixer init";
+
+	SDL_Texture *bgGTexture{ IMG_LoadTexture(renderer, "../../res/img/bgCastle.jpg") };
+	if (bgGTexture == nullptr) throw "No s'han pogut crear les textures";
+	SDL_Rect bgGRect{ 0,0,1064, SCREEN_HEIGHT};
 
 	// --- SPRITES ---
 	SDL_Texture *goldTexture{ IMG_LoadTexture(renderer, "../../res/img/gold.png") };
@@ -63,12 +122,12 @@ int main(int, char*[]) {
 	int frameTime = 0;
 
 	// --- TEXT ---
-	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
+	TTF_Font *font{ TTF_OpenFont("../../res/ttf/MarioLuigi2.ttf", 20) };
 	if (font == nullptr)throw"no es pot inicialitzar ttf font";
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "OMAE WA MO SHINDEIRU", SDL_Color{ 255, 0, 0, 255 }) };
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Pl 1:", SDL_Color{ 255, 0, 0, 255 }) };
 	if (tmpSurf == nullptr)TTF_CloseFont(font), throw "Unable to create the sdl text surface";
-	SDL_Texture *textTexture{ SDL_CreateTextureFromSurface(renderer, tmpSurf) };
-	SDL_Rect textRect{ 50, 50, tmpSurf->w, tmpSurf->h };
+	SDL_Texture *textoTexture{ SDL_CreateTextureFromSurface(renderer, tmpSurf) };
+	SDL_Rect textoRect{ 20, 20, tmpSurf->w, tmpSurf->h };
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
 
@@ -79,26 +138,21 @@ int main(int, char*[]) {
 	Mix_Music *soundtrack{ Mix_LoadMUS("../../res/au/mainTheme3.mp3") };
 	if (!soundtrack) throw "Unable to load the Mix_Music soundtrack";
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
-	//Mix_PlayMusic(soundtrack, -1);
+	Mix_PlayMusic(soundtrack, -1);
 
 	// --- TIME ---
-	/*
 	clock_t lastTime = clock();
-	float timeDown = 10.;
+	float timeDown = 120.;
 	float deltaTime = 0;
-	*/
 
 	// --- GAME LOOP ---
 	SDL_Event event;
-	bool isRunning = true;
-	while (isRunning) {
+	while (gamestat == GameState::PLAY) {
 		// HANDLE EVENTS
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_QUIT:	isRunning = false; break;
 			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
-				else if (event.key.keysym.sym == SDLK_d && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
+				if (event.key.keysym.sym == SDLK_d && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
 					playerRect.y = frameHeight * 2;
 					PlayerPosition.x += 10;
 				}
@@ -106,7 +160,7 @@ int main(int, char*[]) {
 					playerRect.y = frameHeight;
 					PlayerPosition.x -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_w && PlayerPosition.y > 170) {
+				else if (event.key.keysym.sym == SDLK_w && PlayerPosition.y > 130) {
 					playerRect.y = frameHeight * 3;
 					PlayerPosition.y -= 10;
 				}
@@ -120,33 +174,35 @@ int main(int, char*[]) {
 		}
 
 		// UPDATE
-		/*
+		for (int i = 0; i < goldRect.size(); i++) {
+			if (goldRect[i].x + goldRect[i].w/2 >= PlayerPosition.x && goldRect[i].y + goldRect[i].h/2 >= PlayerPosition.y && goldRect[i].x + goldRect[i].w/2 <= PlayerPosition.x + PlayerPosition.w && goldRect[i].y + goldRect[i].h/2 <= PlayerPosition.y + PlayerPosition.h) {
+				player1Counter++;
+				std::cout << player1Counter << std::endl;
+				goldRect[i].x = 70 + rand() % (SCREEN_WIDTH - 70 - 70);
+				goldRect[i].y = 180 + rand() % (SCREEN_HEIGHT -70 - 180);
+			}
+		}
 		deltaTime = (clock() - lastTime);
 		lastTime = clock();
 		deltaTime /= CLOCKS_PER_SEC;
 		timeDown -= deltaTime;
 		std::cout << timeDown << std::endl;
-		*/
 
 		frameTime++;
 		if (FPS / frameTime <= 10) {
 			frameTime = 0;
-			if (playerRect.x == frameWidth*5)
+			if (playerRect.x == frameWidth * 5)
 				cambio = -1;
-			else if (playerRect.x == frameWidth*3)
+			else if (playerRect.x == frameWidth * 3)
 				cambio = 1;
 			playerRect.x += frameWidth*cambio;
 
 		}
 
-		/*
-		playerRect.x += (playerTarget.x - playerRect.x)/5;
-		playerRect.y += (playerTarget.y - playerRect.y)/5;
-		*/
 		// DRAW
 		//Background
 		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, bgTexture, nullptr, &bgRect);
+		SDL_RenderCopy(renderer, bgGTexture, nullptr, &bgGRect);
 		//Animated Sprite
 		SDL_RenderCopy(renderer, playerTexture, &playerRect, &PlayerPosition);
 
@@ -156,20 +212,48 @@ int main(int, char*[]) {
 		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[3]);
 		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[4]);
 
-		//SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+		SDL_RenderCopy(renderer, textoTexture, nullptr, &textoRect);
 
 		SDL_RenderPresent(renderer);
-
-
 	}
 
 	// --- DESTROY ---
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-	SDL_DestroyTexture(bgTexture);
+	SDL_DestroyTexture(bgGTexture);
 	SDL_DestroyTexture(playerTexture);
 	SDL_DestroyTexture(goldTexture);
-	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(textoTexture);
+}
+
+int main(int, char*[]) {
+	// --- INIT ---
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) throw "No es pot inicialitzar SDL subsystems";
+
+	// --- WINDOW ---
+	SDL_Window *window{ SDL_CreateWindow("Mini-Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN) };
+	if (window == nullptr) throw "No es pot inicialitzar SDL_Window";
+
+	// --- RENDERER ---
+	SDL_Renderer *renderer{ SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC) };
+	if (renderer == nullptr) throw "No es pot inicialitzar SDL_Renderer";
+
+
+	SDL_Event gamevent;
+	while(gamestat != GameState::EXIT){
+		while (SDL_PollEvent(&gamevent)) {
+			switch (gamestat) {
+			case GameState::MENU:
+				mainMenu(window, renderer);
+				break;
+			case GameState::PLAY:
+				game(window, renderer);
+				break;
+			case GameState::EXIT:
+				break;
+			}
+		}
+	}
 
 	// --- QUIT ---
 	TTF_Quit();
