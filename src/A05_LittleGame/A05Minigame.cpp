@@ -10,12 +10,12 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define FPS 60
-int cambio = 1;
+int cambiop1 = 1;
+int cambiop2 = 1;
 enum class GameState { PLAY, EXIT, MENU };
 GameState gamestat = GameState::MENU;
 int mouse_x, mouse_y;
 int player1Counter = 0;
-
 
 void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 
@@ -40,28 +40,19 @@ void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 		// HANDLE EVENTS
 			while (SDL_PollEvent(&menuevent)) {
 				switch (menuevent.type) {
-				case SDL_KEYDOWN:
-					if (menuevent.key.keysym.sym == SDLK_RETURN) {
-						std::cout << "has pulsado enter" << std::endl;
-						gamestat = GameState::PLAY;
+				case SDL_MOUSEBUTTONDOWN:
+					if (menuevent.button.button == SDL_BUTTON_LEFT)
+					{
+						mouse_x = menuevent.button.x;
+						mouse_y = menuevent.button.y;
+						if ((mouse_x >= kintonRect.x) && (mouse_y >= kintonRect.y) && (mouse_x <= kintonRect.x+kintonRect.w) && (mouse_y <= kintonRect.y+kintonRect.h))
+						{
+							std::cout << "has hecho click" << std::endl;
+							gamestat = GameState::PLAY;
+						}
 					}
 				}
 			}
-		/*
-		if (event.type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (event.button.button == SDL_BUTTON_LEFT)
-			{
-				std::cout << "has hecho click" << std::endl;
-				mouse_x = event.button.x;
-				mouse_y = event.button.y;
-				if ((mouse_x >= kintonRect.x) && (mouse_y >= kintonRect.y) && (mouse_x <= kintonRect.w) && (mouse_y <= kintonRect.h))
-				{
-					gamestat = GameState::PLAY;
-				}
-			}
-		}
-		*/
 
 		// DRAW
 		//Background
@@ -74,8 +65,6 @@ void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 	}
 
 	// --- DESTROY ---
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
 	SDL_DestroyTexture(bgTexture);
 	SDL_DestroyTexture(kinton);
 }
@@ -106,6 +95,7 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 
 	// --- Animated Sprite ---
 	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/spCastle.png") };
+	//Player 1
 	SDL_Rect playerRect, PlayerPosition;
 	int textWidth, textHeight, frameWidth, frameHeight;
 	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
@@ -120,6 +110,16 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 	PlayerPosition.w = 100;
 	playerRect.w = frameWidth;
 	int frameTime = 0;
+	//Player 2
+	SDL_Rect player2Rect, Player2Position;
+	Player2Position.x = 400;
+	Player2Position.y = 300;
+	player2Rect.x = frameWidth * 9;
+	player2Rect.y = frameHeight * 4;
+	Player2Position.h = 100;
+	player2Rect.h = frameHeight;
+	Player2Position.w = 100;
+	player2Rect.w = frameWidth;
 
 	// --- TEXT ---
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/MarioLuigi2.ttf", 20) };
@@ -152,6 +152,7 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
+				//Player 1
 				if (event.key.keysym.sym == SDLK_d && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
 					playerRect.y = frameHeight * 2;
 					PlayerPosition.x += 10;
@@ -167,6 +168,23 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 				else if (event.key.keysym.sym == SDLK_s && PlayerPosition.y + PlayerPosition.h < SCREEN_HEIGHT) {
 					playerRect.y = frameHeight * 0;
 					PlayerPosition.y += 10;
+				}
+				//Player 2
+				if (event.key.keysym.sym == SDLK_RIGHT && Player2Position.x + Player2Position.w < SCREEN_WIDTH) {
+					player2Rect.y = frameHeight * 6;
+					Player2Position.x += 10;
+				}
+				else if (event.key.keysym.sym == SDLK_LEFT && Player2Position.x > 0) {
+					player2Rect.y = frameHeight * 5;
+					Player2Position.x -= 10;
+				}
+				else if (event.key.keysym.sym == SDLK_UP && Player2Position.y > 130) {
+					player2Rect.y = frameHeight * 7;
+					Player2Position.y -= 10;
+				}
+				else if (event.key.keysym.sym == SDLK_DOWN && Player2Position.y + Player2Position.h < SCREEN_HEIGHT) {
+					player2Rect.y = frameHeight * 4;
+					Player2Position.y += 10;
 				}
 				break;
 			default:;
@@ -191,11 +209,18 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 		frameTime++;
 		if (FPS / frameTime <= 10) {
 			frameTime = 0;
+			//player 1
 			if (playerRect.x == frameWidth * 5)
-				cambio = -1;
+				cambiop1 = -1;
 			else if (playerRect.x == frameWidth * 3)
-				cambio = 1;
-			playerRect.x += frameWidth*cambio;
+				cambiop1 = 1;
+			playerRect.x += frameWidth*cambiop1;
+			//player 2
+			if (player2Rect.x == frameWidth * 11)
+				cambiop2 = -1;
+			else if (player2Rect.x == frameWidth * 9)
+				cambiop2 = 1;
+			player2Rect.x += frameWidth*cambiop2;
 
 		}
 
@@ -204,7 +229,10 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, bgGTexture, nullptr, &bgGRect);
 		//Animated Sprite
+		//player 1
 		SDL_RenderCopy(renderer, playerTexture, &playerRect, &PlayerPosition);
+		//player 2
+		SDL_RenderCopy(renderer, playerTexture, &player2Rect, &Player2Position);
 
 		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[0]);
 		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[1]);
@@ -218,8 +246,6 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 	}
 
 	// --- DESTROY ---
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
 	SDL_DestroyTexture(bgGTexture);
 	SDL_DestroyTexture(playerTexture);
 	SDL_DestroyTexture(goldTexture);
@@ -253,7 +279,11 @@ int main(int, char*[]) {
 				break;
 			}
 		}
+
 	}
+	// --- DESTROY ---
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 
 	// --- QUIT ---
 	TTF_Quit();
