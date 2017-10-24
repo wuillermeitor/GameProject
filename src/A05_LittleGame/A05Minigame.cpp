@@ -16,6 +16,7 @@ enum class GameState { PLAY, EXIT, MENU };
 GameState gamestat = GameState::MENU;
 int mouse_x, mouse_y;
 int player1Counter = 0;
+int player2Counter = 0;
 
 void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 
@@ -193,12 +194,20 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 
 		// UPDATE
 		for (int i = 0; i < goldRect.size(); i++) {
-			if (goldRect[i].x + goldRect[i].w/2 >= PlayerPosition.x && goldRect[i].y + goldRect[i].h/2 >= PlayerPosition.y && goldRect[i].x + goldRect[i].w/2 <= PlayerPosition.x + PlayerPosition.w && goldRect[i].y + goldRect[i].h/2 <= PlayerPosition.y + PlayerPosition.h) {
-				player1Counter++;
-				std::cout << player1Counter << std::endl;
+			if (goldRect[i].x + goldRect[i].w/2 >= Player2Position.x && goldRect[i].y + goldRect[i].h/2 >= Player2Position.y && goldRect[i].x + goldRect[i].w/2 <= Player2Position.x + Player2Position.w && goldRect[i].y + goldRect[i].h/2 <= Player2Position.y + Player2Position.h) {
+				player2Counter++;
+				std::cout << player2Counter << std::endl;
 				goldRect[i].x = 70 + rand() % (SCREEN_WIDTH - 70 - 70);
 				goldRect[i].y = 180 + rand() % (SCREEN_HEIGHT -70 - 180);
 			}
+			if (goldRect[i].x + goldRect[i].w / 2 >= PlayerPosition.x && goldRect[i].y + goldRect[i].h / 2 >= PlayerPosition.y && goldRect[i].x + goldRect[i].w / 2 <= PlayerPosition.x + PlayerPosition.w && goldRect[i].y + goldRect[i].h / 2 <= PlayerPosition.y + PlayerPosition.h) {
+				player1Counter++;
+				std::cout << player1Counter << std::endl;
+				goldRect[i].x = 70 + rand() % (SCREEN_WIDTH - 70 - 70);
+				goldRect[i].y = 180 + rand() % (SCREEN_HEIGHT - 70 - 180);
+			}
+
+
 		}
 		deltaTime = (clock() - lastTime);
 		lastTime = clock();
