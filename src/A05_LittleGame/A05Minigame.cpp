@@ -16,6 +16,7 @@ enum class GameState { PLAY, EXIT, MENU };
 GameState gamestat = GameState::MENU;
 int mouse_x, mouse_y;
 int player1Counter = 0;
+int player2Counter = 0;
 
 void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 
@@ -30,9 +31,18 @@ void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 	if (bgTexture == nullptr) throw "No s'han pogut crear les textures";
 	SDL_Rect bgRect{ 0,0,1064, SCREEN_HEIGHT };
 
-	SDL_Texture *kinton{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };
-	if (kinton == nullptr)throw "No s'han pogut crear les textures";
-	SDL_Rect kintonRect{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 350, 189 };
+	// --- TEXT ---
+	TTF_Font *font{ TTF_OpenFont("../../res/ttf/MarioLuigi2.ttf", 70) };
+	if (font == nullptr)throw"no es pot inicialitzar ttf font";
+	//PLAY
+	SDL_Surface *tmpSurfPLAY{ TTF_RenderText_Blended(font, "PLAY", SDL_Color{ 0, 255, 0, 255 }) };
+	if (tmpSurfPLAY == nullptr)TTF_CloseFont(font), throw "Unable to create the sdl text surface";
+	SDL_Texture *textoTexture{ SDL_CreateTextureFromSurface(renderer, tmpSurfPLAY) };
+	SDL_Rect textoRect{ 300,  200, tmpSurfPLAY->w, tmpSurfPLAY->h };
+	SDL_FreeSurface(tmpSurfPLAY);
+
+	TTF_CloseFont(font);
+
 
 	// --- GAME LOOP ---
 	SDL_Event menuevent;
@@ -45,7 +55,7 @@ void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 					{
 						mouse_x = menuevent.button.x;
 						mouse_y = menuevent.button.y;
-						if ((mouse_x >= kintonRect.x) && (mouse_y >= kintonRect.y) && (mouse_x <= kintonRect.x+kintonRect.w) && (mouse_y <= kintonRect.y+kintonRect.h))
+						if ((mouse_x >= textoRect.x) && (mouse_y >= textoRect.y) && (mouse_x <= textoRect.x+ textoRect.w) && (mouse_y <= textoRect.y+ textoRect.h))
 						{
 							std::cout << "has hecho click" << std::endl;
 							gamestat = GameState::PLAY;
@@ -59,14 +69,14 @@ void mainMenu(SDL_Window *window, SDL_Renderer *renderer) {
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, bgTexture, nullptr, &bgRect);
 		//Animated Sprite
-		SDL_RenderCopy(renderer, kinton, nullptr, &kintonRect);
+		SDL_RenderCopy(renderer, textoTexture, nullptr, &textoRect);
 
 		SDL_RenderPresent(renderer);
 	}
 
 	// --- DESTROY ---
 	SDL_DestroyTexture(bgTexture);
-	SDL_DestroyTexture(kinton);
+	SDL_DestroyTexture(textoTexture);
 }
 
 void game(SDL_Window *window, SDL_Renderer *renderer) {
@@ -122,6 +132,7 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 	player2Rect.w = frameWidth;
 
 	// --- TEXT ---
+	//player 1
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/MarioLuigi2.ttf", 20) };
 	if (font == nullptr)throw"no es pot inicialitzar ttf font";
 	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Pl 1:", SDL_Color{ 255, 0, 0, 255 }) };
@@ -130,6 +141,15 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 	SDL_Rect textoRect{ 20, 20, tmpSurf->w, tmpSurf->h };
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
+	//player 2
+	TTF_Font *font2{ TTF_OpenFont("../../res/ttf/MarioLuigi2.ttf", 20) };
+	if (font2 == nullptr)throw"no es pot inicialitzar ttf font";
+	SDL_Surface *tmp2Surf{ TTF_RenderText_Blended(font, "Pl 2:", SDL_Color{ 255, 0, 0, 255 }) };
+	if (tmp2Surf == nullptr)TTF_CloseFont(font2), throw "Unable to create the sdl text surface";
+	SDL_Texture *texto2Texture{ SDL_CreateTextureFromSurface(renderer, tmp2Surf) };
+	SDL_Rect texto2Rect{ 20, 50, tmp2Surf->w, tmp2Surf->h };
+	SDL_FreeSurface(tmp2Surf);
+	TTF_CloseFont(font2);
 
 	// --- AUDIO ---
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
@@ -142,69 +162,94 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 
 	// --- TIME ---
 	clock_t lastTime = clock();
-	float timeDown = 120.;
+	float timeDown = 5.;
 	float deltaTime = 0;
 
 	// --- GAME LOOP ---
 	SDL_Event event;
 	while (gamestat == GameState::PLAY) {
-		// HANDLE EVENTS
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_KEYDOWN:
+			// HANDLE EVENTS
+			while (SDL_PollEvent(&event)) {
+				const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
+				const Uint8 *keyboard2state = SDL_GetKeyboardState(NULL);
 				//Player 1
-				if (event.key.keysym.sym == SDLK_d && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
+				if (keyboardstate[SDL_SCANCODE_D] && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
 					playerRect.y = frameHeight * 2;
 					PlayerPosition.x += 10;
 				}
-				else if (event.key.keysym.sym == SDLK_a && PlayerPosition.x > 0) {
+				else if (keyboardstate[SDL_SCANCODE_A] && PlayerPosition.x > 0) {
 					playerRect.y = frameHeight;
 					PlayerPosition.x -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_w && PlayerPosition.y > 130) {
+				else if (keyboardstate[SDL_SCANCODE_W] && PlayerPosition.y > 130) {
 					playerRect.y = frameHeight * 3;
 					PlayerPosition.y -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_s && PlayerPosition.y + PlayerPosition.h < SCREEN_HEIGHT) {
+				else if (keyboardstate[SDL_SCANCODE_S] && PlayerPosition.y + PlayerPosition.h < SCREEN_HEIGHT) {
 					playerRect.y = frameHeight * 0;
 					PlayerPosition.y += 10;
 				}
 				//Player 2
-				if (event.key.keysym.sym == SDLK_RIGHT && Player2Position.x + Player2Position.w < SCREEN_WIDTH) {
+				if (keyboard2state[SDL_SCANCODE_RIGHT] && Player2Position.x + Player2Position.w < SCREEN_WIDTH) {
 					player2Rect.y = frameHeight * 6;
 					Player2Position.x += 10;
 				}
-				else if (event.key.keysym.sym == SDLK_LEFT && Player2Position.x > 0) {
+				else if (keyboard2state[SDL_SCANCODE_LEFT] && Player2Position.x > 0) {
 					player2Rect.y = frameHeight * 5;
 					Player2Position.x -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_UP && Player2Position.y > 130) {
+				else if (keyboard2state[SDL_SCANCODE_UP] && Player2Position.y > 130) {
 					player2Rect.y = frameHeight * 7;
 					Player2Position.y -= 10;
 				}
-				else if (event.key.keysym.sym == SDLK_DOWN && Player2Position.y + Player2Position.h < SCREEN_HEIGHT) {
+				else if (keyboard2state[SDL_SCANCODE_DOWN] && Player2Position.y + Player2Position.h < SCREEN_HEIGHT) {
 					player2Rect.y = frameHeight * 4;
 					Player2Position.y += 10;
 				}
-				break;
-			default:;
-			}
+				switch (event.type) {
+				case SDL_KEYDOWN:
+					break;
+				default:;
+				}
 		}
 
 		// UPDATE
 		for (int i = 0; i < goldRect.size(); i++) {
-			if (goldRect[i].x + goldRect[i].w/2 >= PlayerPosition.x && goldRect[i].y + goldRect[i].h/2 >= PlayerPosition.y && goldRect[i].x + goldRect[i].w/2 <= PlayerPosition.x + PlayerPosition.w && goldRect[i].y + goldRect[i].h/2 <= PlayerPosition.y + PlayerPosition.h) {
+			if (goldRect[i].x + goldRect[i].w / 2 >= PlayerPosition.x && goldRect[i].y + goldRect[i].h / 2 >= PlayerPosition.y && goldRect[i].x + goldRect[i].w / 2 <= PlayerPosition.x + PlayerPosition.w && goldRect[i].y + goldRect[i].h / 2 <= PlayerPosition.y + PlayerPosition.h) {
 				player1Counter++;
 				std::cout << player1Counter << std::endl;
 				goldRect[i].x = 70 + rand() % (SCREEN_WIDTH - 70 - 70);
-				goldRect[i].y = 180 + rand() % (SCREEN_HEIGHT -70 - 180);
+				goldRect[i].y = 180 + rand() % (SCREEN_HEIGHT - 70 - 180);
+			}
+			if (goldRect[i].x + goldRect[i].w / 2 >= Player2Position.x && goldRect[i].y + goldRect[i].h / 2 >= Player2Position.y && goldRect[i].x + goldRect[i].w / 2 <= Player2Position.x + Player2Position.w && goldRect[i].y + goldRect[i].h / 2 <= Player2Position.y + Player2Position.h) {
+				player2Counter++;
+				std::cout << player2Counter << std::endl;
+				goldRect[i].x = 70 + rand() % (SCREEN_WIDTH - 70 - 70);
+				goldRect[i].y = 180 + rand() % (SCREEN_HEIGHT - 70 - 180);
 			}
 		}
-		deltaTime = (clock() - lastTime);
-		lastTime = clock();
-		deltaTime /= CLOCKS_PER_SEC;
-		timeDown -= deltaTime;
-		std::cout << timeDown << std::endl;
+		if (timeDown > 0) {
+			deltaTime = (clock() - lastTime);
+			lastTime = clock();
+			deltaTime /= CLOCKS_PER_SEC;
+			timeDown -= deltaTime;
+			std::cout << timeDown << std::endl;
+		}
+		else {
+			int x;
+			gamestat=GameState::EXIT;
+			if (player1Counter > player2Counter) {
+				std::cout << "ha ganado player 1" << std::endl;
+			}
+			else if (player1Counter < player2Counter) {
+				std::cout << "ha ganado player 2" << std::endl;
+			}
+			else {
+				std::cout << "Habeis empatado" << std::endl;
+			}
+			std::cout << "Pulsa 0 para salir" << std::endl;
+			std::cin >> x;
+		}
 
 		frameTime++;
 		if (FPS / frameTime <= 10) {
@@ -241,6 +286,7 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 		SDL_RenderCopy(renderer, goldTexture, nullptr, &goldRect[4]);
 
 		SDL_RenderCopy(renderer, textoTexture, nullptr, &textoRect);
+		SDL_RenderCopy(renderer, texto2Texture, nullptr, &texto2Rect);
 
 		SDL_RenderPresent(renderer);
 	}
@@ -250,6 +296,7 @@ void game(SDL_Window *window, SDL_Renderer *renderer) {
 	SDL_DestroyTexture(playerTexture);
 	SDL_DestroyTexture(goldTexture);
 	SDL_DestroyTexture(textoTexture);
+	SDL_DestroyTexture(texto2Texture);
 }
 
 int main(int, char*[]) {
@@ -289,7 +336,6 @@ int main(int, char*[]) {
 	TTF_Quit();
 	IMG_Quit();
 	Mix_Quit();
-	Mix_CloseAudio();
 	SDL_Quit();
 	return 0;
 }
