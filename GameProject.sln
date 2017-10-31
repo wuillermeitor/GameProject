@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloSDL", "src\HelloSDL\HelloSDL.vcxproj", "{657B08D6-2973-44C7-80BF-49FBC0155B82}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A05", "src\A05\A05.vcxproj", "{21575FBE-5F36-42C9-93DD-DF3CD4A3D07D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A05_LittleGame", "src\A05_LittleGame\A05_LittleGame.vcxproj", "{AE1A10BC-C9DE-4EDF-BCD7-07A9735CD820}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A05_Clases", "src\A05_Clases\A05_Clases.vcxproj", "{AED3F0CB-7841-48F8-B54C-EE2054BE3276}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{AE1A10BC-C9DE-4EDF-BCD7-07A9735CD820}.Release|x64.Build.0 = Release|x64
 		{AE1A10BC-C9DE-4EDF-BCD7-07A9735CD820}.Release|x86.ActiveCfg = Release|Win32
 		{AE1A10BC-C9DE-4EDF-BCD7-07A9735CD820}.Release|x86.Build.0 = Release|Win32
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Debug|x64.ActiveCfg = Debug|x64
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Debug|x64.Build.0 = Debug|x64
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Debug|x86.ActiveCfg = Debug|Win32
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Debug|x86.Build.0 = Debug|Win32
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Release|x64.ActiveCfg = Release|x64
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Release|x64.Build.0 = Release|x64
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Release|x86.ActiveCfg = Release|Win32
+		{AED3F0CB-7841-48F8-B54C-EE2054BE3276}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
