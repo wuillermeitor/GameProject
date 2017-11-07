@@ -5,7 +5,6 @@
 Game::Game()
 {
 	gamestate = MENU;
-	currentscene = new MENU;
 }
 
 

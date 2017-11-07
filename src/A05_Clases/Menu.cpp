@@ -4,8 +4,6 @@
 
 
 Menu::Menu() {
-	/*std::cout << "Hola" << std::endl;
-	std::cout << PATH_IMG << std::endl;*/
 	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG + "bg.jpg");
 
 
