@@ -4,17 +4,19 @@
 
 
 Menu::Menu() {
-	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG);
+	/*std::cout << "Hola" << std::endl;
+	std::cout << PATH_IMG << std::endl;*/
+	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG + "bg.jpg");
 
 
 }
 
 Menu::~Menu() {
-
 }
 
 
 void Menu::HandleEvent() {
+	SDL_Event MenuEvent;
 	/*
 	while (SDL_PollEvent(&MenuEvent)) {
 		switch (MenuEvent.type) {
@@ -35,9 +37,15 @@ void Menu::HandleEvent() {
 }
 
 void Menu::Update() {
-
+	
 }
 
 void Menu::Draw() {
-	Renderer::Instance()->PushImage(MENU_BG, BG_Rect);
+	
+	Renderer::Instance()->Clear();
+	
+	Renderer::Instance()->PushImage(MENU_BG, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+
+	Renderer::Instance()->Render();
+
 }

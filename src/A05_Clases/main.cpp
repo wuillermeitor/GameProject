@@ -2,12 +2,11 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <string.h>
-#include "Renderer.h"
-#include "Menu.h"
-#include "Play.h"
+#include "Game.h"
 
 
 int main(int, char*[]) {
-
+	Game game;
+	game.Run();
 	return 0;
 }

@@ -1,11 +1,8 @@
 #pragma once
-#include "Renderer.h"
-
-class Play {
-
+class Play
+{
 public:
-
-
-private:
-
+	Play();
+	~Play();
 };
+
