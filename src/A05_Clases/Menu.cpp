@@ -2,7 +2,6 @@
 #include "Menu.h"
 
 
-
 Menu::Menu() {
 	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG + "bg.jpg");
 
