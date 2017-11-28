@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EnemyList>
+  <Enemy category = "orco">
+    <vitalidad> 10 </vitalidad>
+    <damage_de_ataque> 20 </damage_de_ataque>
+    <defensa> 30 </defensa>
+    <frequencia_ataque> 40 </frequencia_ataque>
+    <experiencia> 50 </experiencia>
+  </Enemy>
+  <Enemy category = "goblin">
+    <vitalidad> 20 </vitalidad>
+    <damage_de_ataque> 30 </damage_de_ataque>
+    <defensa> 40 </defensa>
+    <frequencia_ataque> 50 </frequencia_ataque>
+    <experiencia> 60 </experiencia>
+  </Enemy>
+  <Enemy category = "trasgo">
+    <vitalidad> 30 </vitalidad>
+    <damage_de_ataque> 40 </damage_de_ataque>
+    <defensa> 50 </defensa>
+    <frequencia_ataque> 60 </frequencia_ataque>
+    <experiencia> 70 </experiencia>
+  </Enemy>
+  <Enemy category = "troll">
+    <vitalidad> 40 </vitalidad>
+    <damage_de_ataque> 30 </damage_de_ataque>
+    <defensa> 40 </defensa>
+    <frequencia_ataque> 80 </frequencia_ataque>
+    <experiencia> 90 </experiencia>
+  </Enemy>
+</EnemyList>

@@ -116,7 +116,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="A05Minigame.cpp" />
-    <ClCompile Include="SourceXMLCosa.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="mainEnemy.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="enemy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
