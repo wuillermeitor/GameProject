@@ -1,14 +1,22 @@
 #pragma once
 #include <iostream>
 #include "Renderer.h"
+#include "Menu.h"
+#include "Play.h"
 
-enum CurrentScene { EXIT, MENU, PLAY, RANKING };
-enum CurrentState { RUNNING, GOTO};
-class Game
-{
+
+
+class Game {
+
+private:
+	GameState gmst;
+	Scene *currentScene;
+
 public:
 	Game();
 	~Game();
+
 	void LoopGame();
+
 };
 
