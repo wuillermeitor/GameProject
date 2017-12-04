@@ -15,7 +15,7 @@ private:
 	SDL_Window *m_window = nullptr;
 	std::unordered_map<std::string, SDL_Texture*> m_textureData;
 	std::unordered_map<std::string, TTF_Font*> m_fontData;
-	static Renderer *renderer; //como es estática, va a vivir siempre
+	static Renderer *renderer;
 	Renderer();
 
 public:
