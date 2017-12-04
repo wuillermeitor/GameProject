@@ -4,6 +4,7 @@
 
 Game::Game()
 {
+	currentscene = MENU;
 }
 
 
@@ -12,8 +13,6 @@ Game::~Game()
 }
 
 void Game::LoopGame() {
-	CurrentScene currentscene;
-	CurrentState currentstate;
 	while (currentscene != EXIT) {
 		switch(currentstate){
 		case RUNNING:
