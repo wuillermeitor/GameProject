@@ -3,7 +3,7 @@
 
 
 Game::Game() {
-
+	//puntero de tipo escena que controla menu y play y ranking
 	gmst = GameState::MENU;
 	currentScene = new Menu();
 }
@@ -13,8 +13,9 @@ Game::~Game()
 }
 
 void Game::LoopGame() {
+	currentScene = new Menu();
+	/*
 	while (gmst != GameState::EXIT) {
-
 		switch (currentScene->getState()) {
 
 		case SceneState::RUNNING:
@@ -55,6 +56,7 @@ void Game::LoopGame() {
 		}
 
 	}
+	*/
 
 
 }

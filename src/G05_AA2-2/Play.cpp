@@ -4,7 +4,6 @@
 
 
 Play::Play() {
-	Renderer *rd = Renderer::Instance();
 }
 
 
