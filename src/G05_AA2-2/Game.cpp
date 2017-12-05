@@ -6,22 +6,13 @@ Game::Game() {
 
 	gmst = GameState::MENU;
 	currentScene = new Menu();
-
-<<<<<<< HEAD
-=======
-Game::Game()
-{
-	currentscene = MENU;
->>>>>>> 81776c7cd0ea89bb3324666f2dd95d4744610e92
 }
-
 
 Game::~Game()
 {
 }
 
 void Game::LoopGame() {
-<<<<<<< HEAD
 	while (gmst != GameState::EXIT) {
 
 		switch (currentScene->getState()) {
@@ -30,12 +21,6 @@ void Game::LoopGame() {
 			currentScene->EventHandler();
 			currentScene->Update();
 			currentScene->Draw();
-=======
-	while (currentscene != EXIT) {
-		switch(currentstate){
-		case RUNNING:
->>>>>>> 81776c7cd0ea89bb3324666f2dd95d4744610e92
-			break;
 
 		case SceneState::GOTO:
 			switch (gmst) {
