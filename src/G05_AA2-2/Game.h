@@ -12,9 +12,8 @@ class Game
 {
 private:
 	GameState gmst;
-	Scene *currentScene;
+	Scene *currentscene;
 
-	CurrentScene currentscene;
 	CurrentState currentstate;
 public:
 	Game();

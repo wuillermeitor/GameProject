@@ -5,7 +5,7 @@
 Game::Game() {
 	//puntero de tipo escena que controla menu y play y ranking
 	gmst = GameState::MENU;
-	currentScene = new Menu();
+	currentscene = new Menu();
 }
 
 Game::~Game()
@@ -13,32 +13,30 @@ Game::~Game()
 }
 
 void Game::LoopGame() {
-	currentScene = new Menu();
-	/*
 	while (gmst != GameState::EXIT) {
-		switch (currentScene->getState()) {
+		switch (currentscene->getState()) {
 
 		case SceneState::RUNNING:
-			currentScene->EventHandler();
-			currentScene->Update();
-			currentScene->Draw();
+			currentscene->EventHandler();
+			currentscene->Update();
+			currentscene->Draw();
 
 		case SceneState::GOTO:
 			switch (gmst) {
 			case GameState::PLAY:
-				delete currentScene;
-				currentScene = new Menu();
+				delete currentscene;
+				currentscene = new Menu();
 				gmst = GameState::MENU;
 
 
 			case GameState::MENU:
-				delete currentScene;
-				currentScene = new Play();
+				delete currentscene;
+				currentscene = new Play();
 				gmst = GameState::PLAY;
 
 			case GameState::EXIT:
 				gmst = GameState::EXIT;
-				delete currentScene;
+				delete currentscene;
 
 			default:
 				break;
@@ -48,7 +46,7 @@ void Game::LoopGame() {
 
 		case SceneState::EXIT:
 			gmst = GameState::EXIT;
-			delete currentScene;
+			delete currentscene;
 			break;
 
 		default:
@@ -56,7 +54,4 @@ void Game::LoopGame() {
 		}
 
 	}
-	*/
-
-
 }
