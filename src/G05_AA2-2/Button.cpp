@@ -64,7 +64,6 @@ void Button::eventHandler(SDL_Event evento)
 
 void Button::update()
 {
-	Renderer::Instance()->PushImage(texto.id, Texto_Rect);
 	if (isClicked())
 		std::cout << "click" << std::endl;
 	else if (isHovered())
@@ -75,4 +74,5 @@ void Button::update()
 
 void Button::draw()
 {
+	Renderer::Instance()->PushImage(texto.id, Texto_Rect);
 }

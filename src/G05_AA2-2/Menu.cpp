@@ -34,11 +34,12 @@ void Menu::EventHandler() {
 }
 
 void Menu::Update() {
-	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
 	playButton->update();
 	Renderer::Instance()->Render();
 	Renderer::Instance()->Clear();
 }
 
 void Menu::Draw() {
+	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
+	playButton->draw();
 }
