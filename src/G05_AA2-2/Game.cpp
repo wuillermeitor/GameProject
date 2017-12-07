@@ -17,9 +17,11 @@ void Game::LoopGame() {
 		switch (currentscene->getState()) {
 
 		case SceneState::RUNNING:
+			Renderer::Instance()->Clear();
 			currentscene->EventHandler();
 			currentscene->Update();
 			currentscene->Draw();
+			Renderer::Instance()->Render();
 
 		case SceneState::GOTO:
 			switch (gmst) {

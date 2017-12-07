@@ -1,7 +1,8 @@
 #include "Game.h"
 
-Game game;
+
 int main(int, char*[]) {
-	game.LoopGame();
+	Game* GameManager = new Game();
+	GameManager->LoopGame();
 	return 0;
 }

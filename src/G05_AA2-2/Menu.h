@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Types.h"
 #include "Constants.h"
+#include "Button.h"
 
 
 class Menu : public Scene {
@@ -20,6 +21,8 @@ public:
 	void EventHandler();
 	void Update();
 	void Draw();
+
+	Button* playB;
 
 
 

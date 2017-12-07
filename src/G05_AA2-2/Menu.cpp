@@ -13,6 +13,11 @@ Menu::Menu()
 	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
 	Renderer::Instance()->Render();
 	Renderer::Instance()->Clear();
+
+	playB = new Button();
+	playB->message.placeHolder.x = playB->message.placeHolder.y = 0;
+	playB->message.placeHolder.w = SCREEN_WIDTH / 2;
+	playB->message.placeHolder.h = SCREEN_HEIGHT / 2;
 }
 
 
