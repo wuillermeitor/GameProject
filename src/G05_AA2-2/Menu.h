@@ -22,7 +22,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	Button* playButton;
+	Button ButtonPlay;
+	Button ButtonRanking;
 
 
 

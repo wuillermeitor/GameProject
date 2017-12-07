@@ -64,8 +64,10 @@ void Button::eventHandler(SDL_Event evento)
 
 void Button::update()
 {
-	if (isClicked())
+	if (isClicked()) {
 		std::cout << "click" << std::endl;
+
+	}
 	else if (isHovered())
 		std::cout << "hover" << std::endl;
 

@@ -6,12 +6,15 @@
 #define SCREEN_WIDTH 720
 #define SCREEN_HEIGHT 704
 
-const std::string MENU_BG = "MENU_BG";
-const std::string PLAY_BG = "PLAY_BG";
-const std::string PLAY_GOLD = "PLAY_GOLD";
-const std::string PLAYER_SPRITE = "PLAYER_SPRITE";
+const std::string BACKGROUND = "BACKGROUND";
+const std::string BOMB = "BOMB";
+const std::string ROLLER = "ROLLER";
+const std::string HELMET = "HELMET";
+const std::string PLAYER1_SPRITE = "PLAYER1_SPRITE";
+const std::string PLAYER2_SPRITE = "PLAYER2_SPRITE";
 const std::string PLAY_TEXT_SCORE_PLAYER1 = "PLAY_TEXT_SCORE_PLAYER1";
 const std::string MENU_TEXT_BUTTON_PLAY = "MENU_TEXT_BUTTON_PLAY";
+const std::string MENU_TEXT_BUTTON_RANKING = "MENU_TEXT_BUTTON_RANKING";
 const std::string MENU_TEXT_BUTTON_EXIT = "MENU_TEXT_BUTTON_EXIT";
 
 const std::string PATH_IMG = "../../res/img/";

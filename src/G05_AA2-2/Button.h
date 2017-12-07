@@ -3,8 +3,7 @@
 #include "Renderer.h"
 #include "Types.h"
 
-class Button
-{
+class Button {
 public:
 	Button();
 	~Button();

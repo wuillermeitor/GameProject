@@ -22,25 +22,40 @@ void Game::LoopGame() {
 		}
 		else if (currentscene->getState() == SceneState::GOTO) {
 			//std::cout << "estoy en estado go to" << std::endl;
-			switch (gamestate) {
-			case GameState::PLAY:
+			if (gamestate == GameState::PLAY) {
 				delete currentscene;
 				currentscene = new Menu();
 				gamestate = GameState::MENU;
-
-
-			case GameState::MENU:
+			}
+			else if (gamestate == GameState::MENU) {
 				delete currentscene;
 				currentscene = new Play();
 				gamestate = GameState::PLAY;
-
-			case GameState::EXIT:
-				gamestate = GameState::EXIT;
-				delete currentscene;
-
-			default:
-				break;
 			}
+			else if (gamestate == GameState::RANKING) {
+				delete currentscene;
+				currentscene = new Play();
+				gamestate = GameState::MENU;
+			}
+			//switch (gamestate) {
+			//case GameState::PLAY:
+			//	delete currentscene;
+			//	currentscene = new Menu();
+			//	gamestate = GameState::MENU;
+
+
+			//case GameState::MENU:
+			//	delete currentscene;
+			//	currentscene = new Play();
+			//	gamestate = GameState::PLAY;
+
+			//case GameState::EXIT:
+			//	gamestate = GameState::EXIT;
+			//	delete currentscene;
+
+			//default:
+			//	break;
+			//}
 		}
 
 		//switch (currentscene->getState()) {
