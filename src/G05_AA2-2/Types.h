@@ -22,17 +22,10 @@
 		int h;
 	};
 
-	struct TextB
-	{
-		SDL_Rect placeHolder;
-		std::string path;
-		std::string msg;
-		int size;
-	};
 
 	enum class Key {UP, DOWN, LEFT, RIGHT, NONE};
 
-	enum class GameState { PLAY, MENU, EXIT };
+	enum class GameState { PLAY, MENU, RANKING, EXIT };
 
 	enum class SceneState { RUNNING, GOTO, EXIT };
 	

@@ -8,16 +8,13 @@ Menu::Menu()
 	scenestate = SceneState::RUNNING;
 	BG_ID = "BackGround";
 	std::string BGPath = "../../res/img/bgGame.jpg";
-	std::cout << BGPath << std::endl;
 	Renderer::Instance()->LoadTexture(BG_ID, BGPath);
-	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
-	Renderer::Instance()->Render();
-	Renderer::Instance()->Clear();
 
-	playB = new Button();
-	playB->message.placeHolder.x = playB->message.placeHolder.y = 0;
-	playB->message.placeHolder.w = SCREEN_WIDTH / 2;
-	playB->message.placeHolder.h = SCREEN_HEIGHT / 2;
+	playButton = new Button();
+	playButton->texto.h = 50;
+	playButton->texto.w = 100;
+	playButton->XpositionText = SCREEN_WIDTH / 2 - playButton->texto.w / 2;
+	playButton->YpositionText = SCREEN_HEIGHT / 2 - playButton->texto.h / 2;
 }
 
 
@@ -32,12 +29,15 @@ void Menu::EventHandler() {
 		case SDL_QUIT:
 			break;
 		}
-
+		playButton->eventHandler(evento);
 	}
 }
 
 void Menu::Update() {
 	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
+	playButton->update();
+	Renderer::Instance()->Render();
+	Renderer::Instance()->Clear();
 }
 
 void Menu::Draw() {

@@ -19,6 +19,6 @@ const std::string PATH_FONT = "../../res/ttf/";
 const std::string PATH_AU = "../../res/au/";
 
 const std::string SAIYAN_80 = "SAIYAN_80";
-const std::string LUIGI_40 = "LUIGI_40";
+const std::string GAMEOVER_40 = "GAMEOVER_40";
 
 

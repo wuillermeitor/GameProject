@@ -5,16 +5,12 @@
 #include "Play.h"
 
 
-enum CurrentScene { EXIT, MENU, PLAY, RANKING };
-enum CurrentState { RUNNING, GOTO };
 
 class Game
 {
 private:
-	GameState gmst;
+	GameState gamestate;
 	Scene *currentscene;
-
-	CurrentState currentstate;
 public:
 	Game();
 	~Game();

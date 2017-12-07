@@ -4,7 +4,7 @@
 
 Game::Game() {
 	//puntero de tipo escena que controla menu y play y ranking
-	gmst = GameState::MENU;
+	gamestate = GameState::MENU;
 	currentscene = new Menu();
 }
 
@@ -13,47 +13,75 @@ Game::~Game()
 }
 
 void Game::LoopGame() {
-	while (gmst != GameState::EXIT) {
-		switch (currentscene->getState()) {
-
-		case SceneState::RUNNING:
-			Renderer::Instance()->Clear();
+	while (gamestate != GameState::EXIT) {
+		if (currentscene->getState() == SceneState::RUNNING) {
+			//std::cout << "estoy en estado running" << std::endl;
 			currentscene->EventHandler();
 			currentscene->Update();
 			currentscene->Draw();
-			Renderer::Instance()->Render();
-
-		case SceneState::GOTO:
-			switch (gmst) {
+		}
+		else if (currentscene->getState() == SceneState::GOTO) {
+			//std::cout << "estoy en estado go to" << std::endl;
+			switch (gamestate) {
 			case GameState::PLAY:
 				delete currentscene;
 				currentscene = new Menu();
-				gmst = GameState::MENU;
+				gamestate = GameState::MENU;
 
 
 			case GameState::MENU:
 				delete currentscene;
 				currentscene = new Play();
-				gmst = GameState::PLAY;
+				gamestate = GameState::PLAY;
 
 			case GameState::EXIT:
-				gmst = GameState::EXIT;
+				gamestate = GameState::EXIT;
 				delete currentscene;
 
 			default:
 				break;
 			}
-
-			break;
-
-		case SceneState::EXIT:
-			gmst = GameState::EXIT;
-			delete currentscene;
-			break;
-
-		default:
-			break;
 		}
+
+		//switch (currentscene->getState()) {
+		//case SceneState::RUNNING:
+		//	currentscene->EventHandler();
+		//	currentscene->Update();
+		//	currentscene->Draw();
+
+		//case SceneState::GOTO:
+		//	std::cout << "estoy en estado go to" << std::endl;
+		//	switch (gamestate) {
+		//	case GameState::PLAY:
+		//		delete currentscene;
+		//		currentscene = new Menu();
+		//		gamestate = GameState::MENU;
+
+
+		//	case GameState::MENU:
+		//		delete currentscene;
+		//		currentscene = new Play();
+		//		gamestate = GameState::PLAY;
+
+		//	case GameState::EXIT:
+		//		gamestate = GameState::EXIT;
+		//		delete currentscene;
+
+		//	default:
+		//		break;
+		//	}
+
+		//	break;
+
+		//case SceneState::EXIT:
+		//	std::cout << "estoy en estado exit" << std::endl;
+		//	gamestate = GameState::EXIT;
+		//	delete currentscene;
+		//	break;
+
+		//default:
+		//	break;
+		//}
 
 	}
 }

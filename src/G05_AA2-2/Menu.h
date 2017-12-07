@@ -18,11 +18,11 @@ public:
 	Menu();
 	~Menu();
 
-	void EventHandler();
-	void Update();
-	void Draw();
+	void EventHandler() override;
+	void Update() override;
+	void Draw() override;
 
-	Button* playB;
+	Button* playButton;
 
 
 

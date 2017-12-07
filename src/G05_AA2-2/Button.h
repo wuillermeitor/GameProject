@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Renderer.h"
 #include "Types.h"
 
 class Button
@@ -13,8 +14,13 @@ public:
 	void update();
 	void draw();
 
-public:
-	TextB message;
+	Font font;
+	Text texto;
+	Color color;
+	SDL_Rect Texto_Rect;
+	int XpositionText;
+	int YpositionText;
+
 
 private:
 	bool leftClick;
