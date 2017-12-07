@@ -26,40 +26,50 @@ Player::~Player()
 {
 }
 
-void Player::movement() {
-	//const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
-	////Player 1
-	//if (keyboardstate[SDL_SCANCODE_D] && PlayerPosition.x + PlayerPosition.w < SCREEN_WIDTH) {
-	//	playerRect.y = frameHeight * 2;
-	//	PlayerPosition.x += 10;
-	//}
-	//else if (keyboardstate[SDL_SCANCODE_A] && PlayerPosition.x > 0) {
-	//	playerRect.y = frameHeight;
-	//	PlayerPosition.x -= 10;
-	//}
-	//if (keyboardstate[SDL_SCANCODE_W] && PlayerPosition.y > 130) {
-	//	playerRect.y = frameHeight * 3;
-	//	PlayerPosition.y -= 10;
-	//}
-	//else if (keyboardstate[SDL_SCANCODE_S] && PlayerPosition.y + PlayerPosition.h < SCREEN_HEIGHT) {
-	//	playerRect.y = frameHeight * 0;
-	//	PlayerPosition.y += 10;
-	//}
+void Player::EventHandler(SDL_Event evento) {
+	switch (evento.type) {
+	default:
+		break;
+	}
+}
+
+void Player::Update() {
+	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
+	//Player 1
+	if (keyboardstate[SDL_SCANCODE_D] && Player_Position.x + Player_Position.w < SCREEN_WIDTH) {
+		Player_Rect.y = frameHeight * 2;
+		Player_Position.x += 10;
+	}
+	else if (keyboardstate[SDL_SCANCODE_A] && Player_Position.x > 0) {
+		Player_Rect.y = frameHeight;
+		Player_Position.x -= 10;
+	}
+	else if (keyboardstate[SDL_SCANCODE_W] && Player_Position.y > 130) {
+		Player_Rect.y = frameHeight * 3;
+		Player_Position.y -= 10;
+	}
+	else if (keyboardstate[SDL_SCANCODE_S] && Player_Position.y + Player_Position.h < SCREEN_HEIGHT) {
+		Player_Rect.y = frameHeight * 0;
+		Player_Position.y += 10;
+	}
 	////Player 2
-	//if (keyboardstate[SDL_SCANCODE_RIGHT] && Player2Position.x + Player2Position.w < SCREEN_WIDTH) {
-	//	player2Rect.y = frameHeight * 6;
-	//	Player2Position.x += 10;
+	//if (keyboardstate[SDL_SCANCODE_RIGHT] && Player_Position.x + Player_Position.w < SCREEN_WIDTH) {
+	//	Player_Rect.y = frameHeight * 6;
+	//	Player_Position.x += 10;
 	//}
-	//else if (keyboardstate[SDL_SCANCODE_LEFT] && Player2Position.x > 0) {
-	//	player2Rect.y = frameHeight * 5;
-	//	Player2Position.x -= 10;
+	//else if (keyboardstate[SDL_SCANCODE_LEFT] && Player_Position.x > 0) {
+	//	Player_Rect.y = frameHeight * 5;
+	//	Player_Position.x -= 10;
 	//}
-	//if (keyboardstate[SDL_SCANCODE_UP] && Player2Position.y > 130) {
-	//	player2Rect.y = frameHeight * 7;
-	//	Player2Position.y -= 10;
+	//else if (keyboardstate[SDL_SCANCODE_UP] && Player_Position.y > 130) {
+	//	Player_Rect.y = frameHeight * 7;
+	//	Player_Position.y -= 10;
 	//}
-	//else if (keyboardstate[SDL_SCANCODE_DOWN] && Player2Position.y + Player2Position.h < SCREEN_HEIGHT) {
-	//	player2Rect.y = frameHeight * 4;
-	//	Player2Position.y += 10;
+	//else if (keyboardstate[SDL_SCANCODE_DOWN] && Player_Position.y + Player_Position.h < SCREEN_HEIGHT) {
+	//	Player_Rect.y = frameHeight * 4;
+	//	Player_Position.y += 10;
 	//}
+}
+void Player::Draw() {
+	Renderer::Instance()->PushImage(Player_ID, Player_Rect);
 }

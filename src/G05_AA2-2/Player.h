@@ -11,7 +11,9 @@ public:
 	//Métodos
 	Player();
 	~Player();
-	void movement();
+	void EventHandler(SDL_Event evento);
+	void Update();
+	void Draw();
 
 };
 

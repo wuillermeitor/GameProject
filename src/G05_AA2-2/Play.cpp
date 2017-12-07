@@ -51,15 +51,20 @@ Play::~Play() {
 void Play::EventHandler() {
 	SDL_Event evento;
 	while (SDL_PollEvent(&evento)) {
+		player1.EventHandler(evento);
+		player2.EventHandler(evento);
 	}
 }
 
 void Play::Update() {
+	player1.Update();
+	player2.Update();
 	Renderer::Instance()->Render();
 	Renderer::Instance()->Clear();
 }
 
 void Play::Draw() {
 	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
-
+	player1.Draw();
+	player2.Draw();
 }
