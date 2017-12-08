@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Menu.h"
 #include "Play.h"
+#include "Ranking.h"
 
 
 

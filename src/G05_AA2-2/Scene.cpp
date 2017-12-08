@@ -10,6 +10,18 @@ Scene::Scene() {
 Scene::~Scene() {
 }
 
+void Scene::Draw() {
+
+}
+
+void Scene::EventHandler(){
+
+}
+
+void Scene::Update() {
+
+}
+
 
 SceneState Scene::getState() {
 	return scenestate;

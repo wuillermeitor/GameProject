@@ -21,22 +21,52 @@ void Game::LoopGame() {
 			currentscene->Draw();
 		}
 		else if (currentscene->getState() == SceneState::GOTOLVL1) {
-			//std::cout << "estoy en estado go to" << std::endl;
-			if (gamestate == GameState::PLAY) {
+			//std::cout << "Deberia estar en lvl 1" << std::endl;
+			/*if (gamestate == GameState::PLAY) {
 				delete currentscene;
 				currentscene = new Menu();
 				gamestate = GameState::MENU;
-			}
-			else if (gamestate == GameState::MENU) {
+			}*/
+			if (gamestate == GameState::MENU) {
 				delete currentscene;
 				currentscene = new Play();
 				gamestate = GameState::PLAY;
 			}
-			else if (gamestate == GameState::RANKING) {
+			/*else if (gamestate == GameState::RANKING) {
 				delete currentscene;
-				currentscene = new Play();
+				currentscene = new Ranking();
+				gamestate = GameState::MENU;
+			}*/
+		}
+		else if (currentscene->getState() == SceneState::GOTORANKING) {
+			//std::cout << "Deberia estar en Ranking" << std::endl;
+			if (gamestate == GameState::MENU) {
+				delete currentscene;
+				currentscene = new Ranking();
+				gamestate = GameState::RANKING;
+			}
+			/*else if (gamestate == GameState::MENU) {
+				delete currentscene;
+				currentscene = new Ranking();
+				gamestate = GameState::RANKING;
+			}
+			else if (gamestate == GameState::PLAY) {
+				delete currentscene;
+				currentscene = new Ranking();
+				gamestate = GameState::MENU;
+			}*/
+		}
+		else if (currentscene->getState() == SceneState::GOTOMENU) {
+			if (gamestate == GameState::RANKING) {
+				delete currentscene;
+				currentscene = new Menu();
 				gamestate = GameState::MENU;
 			}
+			
+
+
+
+			
 			//switch (gamestate) {
 			//case GameState::PLAY:
 			//	delete currentscene;

@@ -37,7 +37,7 @@ Menu::Menu()
 	ButtonRanking.texto.h = 50;
 	ButtonRanking.texto.w = 100;
 	ButtonRanking.XpositionText = SCREEN_WIDTH / 2 - ButtonRanking.texto.w / 2;
-	ButtonRanking.YpositionText = SCREEN_HEIGHT / 2;
+	ButtonRanking.YpositionText = (SCREEN_HEIGHT / 2)+100;
 	Renderer::Instance()->LoadFont(ButtonRanking.font);
 	Renderer::Instance()->LoadTextureText(ButtonRanking.font.id, ButtonRanking.texto);
 	ButtonRanking.Texto_Rect = { ButtonRanking.XpositionText, ButtonRanking.YpositionText, ButtonRanking.texto.w, ButtonRanking.texto.h };
@@ -55,6 +55,9 @@ void Menu::EventHandler() {
 		ButtonRanking.eventHandler(evento);
 		if (ButtonPlay.isClicked()) {
 			scenestate = SceneState::GOTOLVL1;
+		}
+		else if (ButtonRanking.isClicked()) {
+			scenestate = SceneState::GOTORANKING;
 		}
 	}
 }

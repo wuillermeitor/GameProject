@@ -6,6 +6,7 @@
 #include "Types.h"
 #include "Constants.h"
 #include "Button.h"
+#include "Ranking.h"
 
 
 class Menu : public Scene {
@@ -24,6 +25,8 @@ public:
 
 	Button ButtonPlay;
 	Button ButtonRanking;
+	
+	
 
 
 
