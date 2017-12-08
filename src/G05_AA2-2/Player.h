@@ -15,7 +15,7 @@ public:
 	Player();
 	~Player();
 	void EventHandler(SDL_Event evento);
-	void Update();
+	void Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT);
 	void Draw();
 
 };

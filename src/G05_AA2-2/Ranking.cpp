@@ -5,7 +5,10 @@
 
 Ranking::Ranking()
 {
-	scenestate = SceneState::RUNNING;;
+	scenestate = SceneState::RUNNING;
+	BG_ID = BACKGROUND;
+	std::string BGPath = "../../res/img/bgGame.jpg";
+	Renderer::Instance()->LoadTexture(BG_ID, BGPath);
 	ButtonMenu = Button();
 	ButtonMenu.font.id = "game_over";
 	ButtonMenu.font.path = "../../res/ttf/game_over.ttf";
@@ -17,7 +20,7 @@ Ranking::Ranking()
 	ButtonMenu.texto.h = 50;
 	ButtonMenu.texto.w = 100;
 	ButtonMenu.XpositionText = SCREEN_WIDTH / 2 - ButtonMenu.texto.w / 2;
-	ButtonMenu.YpositionText = SCREEN_HEIGHT / 2 - ButtonMenu.texto.h / 2;
+	ButtonMenu.YpositionText = 600;
 	Renderer::Instance()->LoadFont(ButtonMenu.font);
 	Renderer::Instance()->LoadTextureText(ButtonMenu.font.id, ButtonMenu.texto);
 	ButtonMenu.Texto_Rect = { ButtonMenu.XpositionText, ButtonMenu.YpositionText, ButtonMenu.texto.w, ButtonMenu.texto.h };

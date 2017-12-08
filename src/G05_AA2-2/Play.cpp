@@ -62,8 +62,9 @@ void Play::EventHandler() {
 }
 
 void Play::Update() {
-	player1.Update();
-	player2.Update();
+	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
+	player1.Update(SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D);
+	player2.Update(SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT);
 }
 
 void Play::Draw() {
