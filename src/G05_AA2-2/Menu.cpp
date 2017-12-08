@@ -54,7 +54,7 @@ void Menu::EventHandler() {
 		ButtonPlay.eventHandler(evento);
 		ButtonRanking.eventHandler(evento);
 		if (ButtonPlay.isClicked()) {
-			scenestate = SceneState::GOTO;
+			scenestate = SceneState::GOTOLVL1;
 		}
 	}
 }
@@ -62,12 +62,12 @@ void Menu::EventHandler() {
 void Menu::Update() {
 	ButtonPlay.update();
 	ButtonRanking.update();
-	Renderer::Instance()->Render();
-	Renderer::Instance()->Clear();
 }
 
 void Menu::Draw() {
 	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
 	ButtonPlay.draw();
 	ButtonRanking.draw();
+	Renderer::Instance()->Render();
+	Renderer::Instance()->Clear();
 }

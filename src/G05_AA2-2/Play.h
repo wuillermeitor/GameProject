@@ -8,6 +8,7 @@
 #include "Button.h"
 #include "Player.h"
 #include "Button.h"
+#include "Level.h"
 
 class Play : public Scene {
 
@@ -17,6 +18,7 @@ private:
 	SDL_Rect BG_Rect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 	Player player1;
 	Player player2;
+	Level lvl1;
 	Button ButtonPlay;
 
 public:

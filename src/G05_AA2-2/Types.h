@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <SDL.h>
+#include "Constants.h"
 
 	using Rect = struct  Rect{ int  x; int y; int w; int h; };
 
@@ -27,7 +28,7 @@
 
 	enum class GameState { PLAY, MENU, RANKING, EXIT };
 
-	enum class SceneState { RUNNING, GOTO, EXIT };
+	enum class SceneState { RUNNING, GOTORANKING, GOTOLVL1, GOTOLVL2, GOTOMENU, EXIT };
 	
 
 

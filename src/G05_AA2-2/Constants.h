@@ -9,6 +9,10 @@
 #define SCRIPT_SIZE 48
 #define HUD_HEIGHT 80
 
+#define FPS 60
+
+#define LADO_CASILLA 48
+
 const std::string BACKGROUND = "BACKGROUND";
 const std::string BOMB = "BOMB";
 const std::string ROLLER = "ROLLER";

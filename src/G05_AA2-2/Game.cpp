@@ -20,7 +20,7 @@ void Game::LoopGame() {
 			currentscene->Update();
 			currentscene->Draw();
 		}
-		else if (currentscene->getState() == SceneState::GOTO) {
+		else if (currentscene->getState() == SceneState::GOTOLVL1) {
 			//std::cout << "estoy en estado go to" << std::endl;
 			if (gamestate == GameState::PLAY) {
 				delete currentscene;

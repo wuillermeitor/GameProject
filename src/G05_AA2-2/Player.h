@@ -6,8 +6,11 @@ public:
 	//Variables
 	std::string Player_ID, PlayerPath;
 	SDL_Rect Player_Rect, Player_Position;
-	int textWidth, textHeight, frameWidth, frameHeight;
+	int textWidth = 192;
+	int textHeight = 94;
+	int frameWidth, frameHeight;
 	int frameTime;
+	int cambiop = 1;
 	//Métodos
 	Player();
 	~Player();
