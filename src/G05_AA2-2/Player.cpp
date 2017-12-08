@@ -34,7 +34,7 @@ void Player::EventHandler(SDL_Event evento) {
 	}
 }
 
-void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT) {
+void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb) {
 	frameTime++;
 	if (FPS / frameTime <= 10) {
 		frameTime = 0;
@@ -56,6 +56,9 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 	else if (keyboardstate[RIGHT] && Player_Position.x + Player_Position.w < SCREEN_WIDTH) {
 		Player_Rect.y = 48 * 3;
 		Player_Position.x += 10;
+	}
+	if (keyboardstate[DropBomb]) {
+		std::cout << "drop de boomb!!!" << std::endl;
 	}
 }
 void Player::Draw() {
