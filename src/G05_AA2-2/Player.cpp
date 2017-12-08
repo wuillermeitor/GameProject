@@ -6,8 +6,7 @@
 Player::Player()
 {
 	PlayerPath = "../../res/img/player1.png";
-	Renderer::Instance()->LoadTexture(Player_ID, PlayerPath);
-	Renderer::Instance()->GetTextureSize(Player_ID);
+	Player_ID = PLAYER1_SPRITE;
 	frameWidth = textWidth / 3;
 	frameHeight = textHeight / 4;
 	Player_Position.x = 200;
@@ -19,6 +18,8 @@ Player::Player()
 	Player_Position.w = 100;
 	Player_Rect.w = frameWidth;
 	frameTime = 0;
+	Renderer::Instance()->LoadTexture(Player_ID, PlayerPath);
+	Renderer::Instance()->GetTextureSize(Player_ID);
 }
 
 
