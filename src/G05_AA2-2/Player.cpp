@@ -53,7 +53,7 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		Player_Rect.x += 48*cambiop;
 
 	}
-	std::cout << "el player " << Player_ID << " esta en la casilla " << tmpPosXY.x << " " << tmpPosXY.y << std::endl;
+	//std::cout << "el player " << Player_ID << " esta en la casilla " << tmpPosXY.x << " " << tmpPosXY.y << std::endl;
 
 	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
 	//Player Multiusos

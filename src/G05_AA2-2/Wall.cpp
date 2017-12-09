@@ -8,11 +8,11 @@
 Wall::Wall()
 {
 	WallPath = "../../res/img/items.png";
-	Wall_ID = WALL;
+	Wall_ID = INDESTRUCTIBLE_WALL;
 	Renderer::Instance()->LoadTexture(Wall_ID, WallPath);
 	Renderer::Instance()->GetTextureSize(Wall_ID);
-	frameWidth = textWidth / 3;
-	frameHeight = textHeight / 2;
+	frameWidth = (textWidth / 3 );
+	frameHeight = (textHeight / 2);
 	Wall_Position.x = 0;
 	Wall_Position.y = 0;
 	Wall_Rect.x = 0;

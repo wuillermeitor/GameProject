@@ -29,7 +29,7 @@
 
 	enum class Key {UP, DOWN, LEFT, RIGHT, NONE};
 
-	enum class GameState { PLAY, MENU, RANKING, EXIT };
+	enum class GameState { PLAY1, PLAY2, MENU, RANKING, EXIT };
 
 	enum class SceneState { RUNNING, GOTORANKING, GOTOLVL1, GOTOLVL2, GOTOMENU, EXIT };
 	

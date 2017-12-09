@@ -7,8 +7,35 @@ Play::Play() {
 	BG_ID = BACKGROUND;
 	std::string BGPath = "../../res/img/bgGame.jpg";
 	Renderer::Instance()->LoadTexture(BG_ID, BGPath);
-
+	lvl2 = Level();
 	lvl1 = Level();
+	
+	if (gamestate == GameState::PLAY2){
+		std::cout << "He entrado en el nivel 2" << std::endl;
+		Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
+		for (int i = 0; i < lvl2.casillasAncho; i++) {
+			lvl2.tablero[i] = new casillas[lvl2.casillasAlto];
+			for (int j = 0; j < lvl2.casillasAlto; j++) {
+				if ((i == 0) && (j == 0) || (i == 1) && (j == 0) || (i == 0) && (j == 1) || (i == 12) && (j == 12) || (i == 11) && (j == 12) || (i == 12) && (j == 11)) {
+					lvl2.tablero[i][j] = casillas::EMPTY;
+				}
+				else {
+					lvl2.auxrandomblock = (std::rand() % (3));
+					if (lvl2.auxrandomblock == 0) {
+						lvl2.tablero[i][j] = casillas::EMPTY;
+					}
+					else if (lvl2.auxrandomblock == 1) {
+						lvl2.tablero[i][j] = casillas::DESTRUCTIBLE_WALL;
+					}
+					else {
+						lvl2.tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
+					}
+				}
+			}
+		}
+		lvl2.limiteIJ = { 0, 0 };
+		lvl2.limiteWH = { lvl2.casillasAncho, lvl2.casillasAlto };
+	}
 
 	//Load player 1
 	player1 = Player();

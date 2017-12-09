@@ -5,6 +5,7 @@
 
 Level::Level()
 {
+
 	Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
 	casillasAncho = 13;
 	casillasAlto = 13;
@@ -23,6 +24,7 @@ Level::Level()
 	}
 	limiteIJ = { 0, 0 };
 	limiteWH = { casillasAncho, casillasAlto };
+
 }
 
 
@@ -53,11 +55,17 @@ Vector2 Level::CasillaACoordenada(int i, int j)
 
 void Level::Draw()
 {
-
+	
 	for (int i = 0; i < casillasAncho; ++i) {
 		for (int j = 0; j < casillasAlto; ++j) {
-			if (tablero[i][j] != casillas::EMPTY) {
+			if (tablero[i][j] == casillas::INDESTRUCTIBLE_WALL) {
 				Vector2 coordenadas = CasillaACoordenada(i, j);
+				wall.Wall_ID = INDESTRUCTIBLE_WALL;
+				wall.draw(wall.Wall_ID, coordenadas.x, coordenadas.y);
+			}
+			else if (tablero[i][j] == casillas::DESTRUCTIBLE_WALL) {
+				Vector2 coordenadas = CasillaACoordenada(i, j);
+				wall.Wall_ID = DESTRUCTIBLE_WALL;
 				wall.draw(wall.Wall_ID, coordenadas.x, coordenadas.y);
 			}
 		}

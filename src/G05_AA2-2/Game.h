@@ -9,10 +9,10 @@
 
 class Game
 {
-private:
+public:
 	GameState gamestate;
 	Scene *currentscene;
-public:
+
 	Game();
 	~Game();
 

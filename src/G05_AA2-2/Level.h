@@ -11,6 +11,7 @@
 
 class Level {
 public:
+	int auxrandomblock;
 	int time;
 	std::string BG_ID;
 	std::string WALL_ID;
@@ -34,7 +35,7 @@ public:
 	Level();
 	~Level();
 
-	void Setup();
+
 	void Draw(); 
 	void Update(); 
 	void InputHandler(); 

@@ -22,20 +22,38 @@ void Game::LoopGame() {
 		}
 		else if (currentscene->getState() == SceneState::GOTOLVL1) {
 			//std::cout << "Deberia estar en lvl 1" << std::endl;
-			/*if (gamestate == GameState::PLAY) {
+			/*if (gamestate == GameState::PLAY1) {
 				delete currentscene;
 				currentscene = new Menu();
 				gamestate = GameState::MENU;
 			}*/
 			if (gamestate == GameState::MENU) {
 				delete currentscene;
+				gamestate = GameState::PLAY1;
 				currentscene = new Play();
-				gamestate = GameState::PLAY;
 			}
 			/*else if (gamestate == GameState::RANKING) {
 				delete currentscene;
 				currentscene = new Ranking();
 				gamestate = GameState::MENU;
+			}*/
+		}
+		else if (currentscene->getState() == SceneState::GOTOLVL2) {
+			//std::cout << "Deberia estar en Ranking" << std::endl;
+			if (gamestate == GameState::MENU) {
+				delete currentscene;
+				gamestate = GameState::PLAY2;
+				currentscene = new Play();
+			}
+			/*else if (gamestate == GameState::MENU) {
+			delete currentscene;
+			currentscene = new Ranking();
+			gamestate = GameState::RANKING;
+			}
+			else if (gamestate == GameState::PLAY) {
+			delete currentscene;
+			currentscene = new Ranking();
+			gamestate = GameState::MENU;
 			}*/
 		}
 		else if (currentscene->getState() == SceneState::GOTORANKING) {
@@ -62,71 +80,6 @@ void Game::LoopGame() {
 				currentscene = new Menu();
 				gamestate = GameState::MENU;
 			}
-			
-
-
-
-			
-			//switch (gamestate) {
-			//case GameState::PLAY:
-			//	delete currentscene;
-			//	currentscene = new Menu();
-			//	gamestate = GameState::MENU;
-
-
-			//case GameState::MENU:
-			//	delete currentscene;
-			//	currentscene = new Play();
-			//	gamestate = GameState::PLAY;
-
-			//case GameState::EXIT:
-			//	gamestate = GameState::EXIT;
-			//	delete currentscene;
-
-			//default:
-			//	break;
-			//}
 		}
-
-		//switch (currentscene->getState()) {
-		//case SceneState::RUNNING:
-		//	currentscene->EventHandler();
-		//	currentscene->Update();
-		//	currentscene->Draw();
-
-		//case SceneState::GOTO:
-		//	std::cout << "estoy en estado go to" << std::endl;
-		//	switch (gamestate) {
-		//	case GameState::PLAY:
-		//		delete currentscene;
-		//		currentscene = new Menu();
-		//		gamestate = GameState::MENU;
-
-
-		//	case GameState::MENU:
-		//		delete currentscene;
-		//		currentscene = new Play();
-		//		gamestate = GameState::PLAY;
-
-		//	case GameState::EXIT:
-		//		gamestate = GameState::EXIT;
-		//		delete currentscene;
-
-		//	default:
-		//		break;
-		//	}
-
-		//	break;
-
-		//case SceneState::EXIT:
-		//	std::cout << "estoy en estado exit" << std::endl;
-		//	gamestate = GameState::EXIT;
-		//	delete currentscene;
-		//	break;
-
-		//default:
-		//	break;
-		//}
-
 	}
 }
