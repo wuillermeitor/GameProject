@@ -12,6 +12,9 @@ public:
 	int frameWidth, frameHeight;
 	int frameTime;
 	int cambiop = 1;
+	bool dropbomb = false;
+	int dropX, dropY;
+	Bombas bomba;
 	//Métodos
 	Player();
 	~Player();

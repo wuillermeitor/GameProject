@@ -3,8 +3,7 @@
 #include <iostream>
 
 
-Player::Player()
-{
+Player::Player(){
 	PlayerPath = "../../res/img/player1.png";
 	Player_ID = PLAYER1_SPRITE;
 	Renderer::Instance()->LoadTexture(Player_ID, PlayerPath);
@@ -20,6 +19,10 @@ Player::Player()
 	Player_Position.w = 48;
 	Player_Rect.w = frameWidth;
 	frameTime = 0;
+	bomba = Bombas();
+	bomba.lastTime = clock();
+	bomba.timeDown = 3.;
+	bomba.deltaTime = 0;
 }
 
 
@@ -35,10 +38,19 @@ void Player::EventHandler(SDL_Event evento) {
 }
 
 void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb) {
+
 	frameTime++;
 	if (FPS / frameTime <= 10) {
 		frameTime = 0;
+		//player 1
+		if (Player_Rect.x == 48 * 2)
+			cambiop = -1;
+		else if (Player_Rect.x == 0)
+			cambiop = 1;
+		Player_Rect.x += 48*cambiop;
+
 	}
+
 	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
 	//Player Multiusos
 	if (keyboardstate[UP] && Player_Position.y > 130) {
@@ -57,15 +69,30 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		Player_Rect.y = 48 * 3;
 		Player_Position.x += 10;
 	}
-	if (keyboardstate[DropBomb]) {
-		std::cout << "drop de boomb!!!" << std::endl;
-		Player::SpawnBomba(Player_Position.x, Player_Position.y);
+	if (!dropbomb) {
+		if (keyboardstate[DropBomb]) {
+			std::cout << "drop bomb" << std::endl;
+			dropX = Player_Position.x;
+			dropY = Player_Position.y;
+			dropbomb = true;
+		}
 	}
 }
 void Player::Draw() {
+	if (dropbomb) {
+		Player::SpawnBomba(dropX, dropY);
+	}
+	if (bomba.explosion) {
+		bomba.lastTime = clock();
+		bomba.timeDown = 3.;
+		bomba.deltaTime = 0;
+		dropbomb = false;
+		bomba.explosion = false;
+	}
 	Renderer::Instance()->PushSprite(Player_ID, Player_Rect, Player_Position);
 }
 
 void Player::SpawnBomba(int i, int j) {
-	new Bombas(i, j);
+	bomba.Draw(i, j);
+	bomba.Update();
 }

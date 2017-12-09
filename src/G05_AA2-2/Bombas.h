@@ -1,7 +1,8 @@
 #pragma once
+#include <ctime>
+#include <iostream>
 #include "Types.h"
 #include "Renderer.h"
-#include <ctime>
 
 
 
@@ -11,14 +12,17 @@ public:
 	std::string Bombas_ID, BombasPath;
 	SDL_Rect Bombas_Rect, Bombas_Position;
 	int frameWidth, frameHeight;
-	int textWidth = 192;
-	int textHeight = 94;
-	Bombas(int i,int j);
+	int textWidth = 144;
+	int textHeight = 96;
+	Bombas();
 	~Bombas();
 	void Update();
-	void Draw();
+	void Draw(int i, int j);
+	clock_t lastTime = clock();
+	float timeDown = 3.;
+	float deltaTime = 0;
+	bool explosion = false;
 
 private:
-	clock_t timer;
 };
 
