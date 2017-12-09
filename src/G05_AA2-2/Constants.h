@@ -15,6 +15,9 @@
 
 const std::string BACKGROUND = "BACKGROUND";
 const std::string BOMB = "BOMB";
+const std::string GAMEOBJECT = "GAMEOBJECT";
+const std::string LIMIT = "LIMIT";
+const std::string WALL = "WALL";
 const std::string ROLLER = "ROLLER";
 const std::string HELMET = "HELMET";
 const std::string PLAYER1_SPRITE = "PLAYER1_SPRITE";

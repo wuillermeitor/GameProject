@@ -4,17 +4,17 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <iostream>
+#include "Types.h"
 #include "Renderer.h"
-
-struct position { int x;  int y; };
 
 class GameObject
 {
 public:	
-	position pos;
-	SDL_Rect sprite;
-	bool blocksPJ; //el jugador col.lisiona o no
-				   //size a Constants.h
+	std::string GameObject_ID, GameObjectPath;
+	SDL_Rect GameObject_Rect, GameObject_Position;
+	int frameWidth, frameHeight;
+	int textWidth = 144;
+	int textHeight = 96;
 
 	GameObject();
 	~GameObject();
@@ -22,5 +22,6 @@ public:
 	virtual void setup() = 0;
 	virtual void update() = 0;
 	virtual void draw() = 0;
+
 };
 

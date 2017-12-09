@@ -1,17 +1,17 @@
 #pragma once
 #include "GameObject.h"
-
-class Wall : public GameObject
+class Limit : public GameObject
 {
 public:
-	std::string Wall_ID, WallPath;
-	SDL_Rect Wall_Rect, Wall_Position;
+
+	std::string Limit_ID, LimitPath;
+	SDL_Rect Limit_Rect, Limit_Position;
 	int frameWidth, frameHeight;
 	int textWidth = 144;
 	int textHeight = 96;
 
-	Wall();
-	~Wall();
+	Limit();
+	~Limit();
 
 	void setup() override;
 	void draw() override;

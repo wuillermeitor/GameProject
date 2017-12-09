@@ -4,16 +4,25 @@
 #include "Constants.h"
 #include "GameObject.h"
 #include "Wall.h"
+#include "Limit.h"
 #include "Menu.h"
 #include "Button.h"
 
 class Level {
 public:
-	GameObject * map[SCREEN_WIDTH / SCRIPT_SIZE][(SCREEN_HEIGHT - HUD_HEIGHT) / SCRIPT_SIZE]; 
 	int time;
 	std::string BG_ID;
+	std::string WALL_ID;
+	std::string GAMEOBJECT_ID;
+	std::string LIMIT_ID;
 	SDL_Rect BG_Rect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
+	SDL_Rect Limit_Rect, Limit_Position;
+	SDL_Rect Wall_Rect, Wall_Position;
+	SDL_Rect GameObject_Rect, GameObject_Position;
 	GameState gamestate;
+
+	GameObject*** tablero;
+
 
 	Level();
 	~Level();
