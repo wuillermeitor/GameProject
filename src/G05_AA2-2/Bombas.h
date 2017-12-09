@@ -11,6 +11,8 @@ public:
 	std::string Bombas_ID, BombasPath;
 	SDL_Rect Bombas_Rect, Bombas_Position;
 	int frameWidth, frameHeight;
+	int textWidth = 192;
+	int textHeight = 94;
 	Bombas(int i,int j);
 	~Bombas();
 	void Update();
