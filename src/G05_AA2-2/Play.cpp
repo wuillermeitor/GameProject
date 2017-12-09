@@ -18,9 +18,9 @@ Play::Play() {
 	Renderer::Instance()->GetTextureSize(player1.Player_ID);
 	player1.frameWidth = player1.textWidth / 3;
 	player1.frameHeight = player1.textHeight / 4;
-	Vector2 tmpPosP1 = lvl1.CasillaACoordenada(0, 0);
-	player1.Player_Position.x = tmpPosP1.x;
-	player1.Player_Position.y = tmpPosP1.y;
+	player1.tmpPosXY = lvl1.CasillaACoordenada(0, 0);
+	player1.Player_Position.x = player1.tmpPosXY.x;
+	player1.Player_Position.y = player1.tmpPosXY.y;
 	player1.Player_Rect.x = 0;
 	player1.Player_Rect.y = 0;
 	player1.Player_Position.h = LADO_CASILLA;
@@ -39,8 +39,9 @@ Play::Play() {
 	Renderer::Instance()->GetTextureSize(player2.Player_ID);
 	player2.frameWidth = player2.textWidth / 3;
 	player2.frameHeight = player2.textHeight / 4;
-	player2.Player_Position.x = SCREEN_WIDTH / 3;
-	player2.Player_Position.y = SCREEN_HEIGHT / 3;
+	player2.tmpPosXY = lvl1.CasillaACoordenada(0, lvl1.casillasAlto-1);
+	player2.Player_Position.x = player2.tmpPosXY.x;
+	player2.Player_Position.y = player2.tmpPosXY.y;
 	player2.Player_Rect.x = 0;
 	player2.Player_Rect.y = 0;
 	player2.Player_Position.h = LADO_CASILLA;

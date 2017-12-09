@@ -7,10 +7,11 @@ Player::Player(){
 	Player_ID = PLAYER1_SPRITE;
 	Renderer::Instance()->LoadTexture(Player_ID, PlayerPath);
 	Renderer::Instance()->GetTextureSize(Player_ID);
+	tmpPosXY = lvl.CasillaACoordenada(0, 0);
 	frameWidth = textWidth / 3;
 	frameHeight = textHeight / 4;
-	Player_Position.x = 200;
-	Player_Position.y = 300;
+	Player_Position.x = tmpPosXY.x;
+	Player_Position.y = tmpPosXY.y;
 	Player_Rect.x = 0;
 	Player_Rect.y = 0;
 	Player_Position.h = LADO_CASILLA;
@@ -40,7 +41,7 @@ void Player::EventHandler(SDL_Event evento) {
 }
 
 void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb) {
-
+	tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x, Player_Position.y);
 	frameTime++;
 	if (FPS / frameTime <= 10) {
 		frameTime = 0;
@@ -63,11 +64,11 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		Player_Rect.y = 48 * 2;
 		Player_Position.y += 5;
 	}
-	else if (keyboardstate[LEFT] && Player_Position.x > lvl.limiteIJ.x) {
+	else if (keyboardstate[LEFT] && Player_Position.x > lvl.limiteIJ.x && lvl.tablero[tmpPosXY.x][tmpPosXY.y] == casillas::EMPTY) {
 		Player_Rect.y = 48;
 		Player_Position.x -= 5;
 	}
-	else if (keyboardstate[RIGHT] && Player_Position.x + Player_Position.w < lvl.limiteWH.x) {
+	else if (keyboardstate[RIGHT] && Player_Position.x + Player_Position.w < lvl.limiteWH.x && lvl.tablero[tmpPosXY.x][tmpPosXY.y+1]==casillas::EMPTY) {
 		Player_Rect.y = 48 * 3;
 		Player_Position.x += 5;
 	}

@@ -33,8 +33,8 @@ Level::~Level()
 
 Vector2 Level::CoordenadaACasilla(int x, int y)
 {
-	int xCasilla = x / LADO_CASILLA;
-	int yCasilla = y / LADO_CASILLA;
+	int xCasilla = (x / LADO_CASILLA) - 1;
+	int yCasilla = (y / LADO_CASILLA) - 2;
 	Vector2 casilla{ yCasilla, xCasilla };
 	return casilla;
 }
