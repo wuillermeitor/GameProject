@@ -8,7 +8,7 @@
 class Level {
 public:
 	Level * map[SCREEN_WIDTH / SCRIPT_SIZE][(SCREEN_HEIGHT - HUD_HEIGHT) / SCRIPT_SIZE]; 
-	Wall wall;
+	Wall **wall;
 	int time;
 	std::string BG_ID;
 	SDL_Rect BG_Rect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
