@@ -20,7 +20,7 @@ Player::Player(){
 	Player_Rect.w = frameWidth;
 	frameTime = 0;
 	lifes = 3;
-	points = 0;
+	score = 0;
 	bomba = Bombas();
 	lvl = Level();
 

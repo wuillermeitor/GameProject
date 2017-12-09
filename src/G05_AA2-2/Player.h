@@ -18,7 +18,7 @@ public:
 	int dropX, dropY;
 	int lifes;
 	bool IsPoweredUp;
-	int points;
+	int score;
 	Vector2 tmpPosXY;
 	Bombas bomba;
 	Level lvl;

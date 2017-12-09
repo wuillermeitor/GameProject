@@ -10,6 +10,7 @@
 #include "Button.h"
 #include "Level.h"
 #include "Renderer.h"
+#include "HUD.h"
 
 class Play : public Scene {
 
@@ -21,6 +22,7 @@ private:
 	Player player2;
 	Level lvl1;
 	Button ButtonPlay;
+	HUD hud;
 
 public:
 	Play();
