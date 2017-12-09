@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "Bombas.h"
 class Player
 {
 public:
@@ -17,6 +18,7 @@ public:
 	void EventHandler(SDL_Event evento);
 	void Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb);
 	void Draw();
+	void SpawnBomba(int, int);
 
 };
 

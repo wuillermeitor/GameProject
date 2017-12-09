@@ -40,7 +40,7 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		frameTime = 0;
 	}
 	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
-	//Player 1
+	//Player Multiusos
 	if (keyboardstate[UP] && Player_Position.y > 130) {
 		Player_Rect.y = 0;
 		Player_Position.y -= 10;
@@ -59,8 +59,13 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 	}
 	if (keyboardstate[DropBomb]) {
 		std::cout << "drop de boomb!!!" << std::endl;
+		Player::SpawnBomba(Player_Position.x, Player_Position.y);
 	}
 }
 void Player::Draw() {
 	Renderer::Instance()->PushSprite(Player_ID, Player_Rect, Player_Position);
+}
+
+void Player::SpawnBomba(int i, int j) {
+	new Bombas(i, j);
 }
