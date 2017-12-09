@@ -1,18 +1,24 @@
 #pragma once
-#include "GameObject.h"
-class Wall :
-	public GameObject
+#include <iostream>
+#include "Constants.h"
+#include "Types.h"
+#include "Renderer.h"
+
+class Wall
 {
 public:
+	//Atributos
+	std::string Wall_ID, WallPath;
+	SDL_Rect Wall_Rect, Wall_Position;
+	int frameWidth, frameHeight;
+	int textWidth = 144;
+	int textHeight = 96;
 
-	//ATR
-	bool destructible;
-	SDL_Rect rect;			//parcela dentro de la hoja de sprites
-
-							
-	Wall(bool dest, int x, int y);
+	//Métodos
+	Wall();
 	~Wall();
-	void setup() override;
-	void draw() override;
-	void update() override;
+
+	void Update();
+	void Draw(int i, int j);
 };
+

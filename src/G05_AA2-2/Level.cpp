@@ -6,7 +6,7 @@
 Level::Level()
 {
 	Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
-
+	wall = Wall();
 	if (gamestate == GameState::PLAY) {
 		gamestate = GameState::PLAY;
 	}
@@ -24,7 +24,8 @@ Level::Level()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			map[i][j] = new Wall(true, i, j);
+			wall.Wall_Position.x = i;
+			wall.Wall_Position.y = j;
 		}
 	}
 

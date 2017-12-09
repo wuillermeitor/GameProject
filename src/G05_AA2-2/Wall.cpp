@@ -1,25 +1,23 @@
-#pragma once
 #include "Wall.h"
-#include "Constants.h"
-#include "GameObject.h"
 
 
 
-Wall::Wall(bool dest, int x, int y)
+Wall::Wall()
 {
-	destructible = dest;
-	pos = { x, y };
-
-	sprite = SDL_Rect{ pos.x * SCRIPT_SIZE, pos.y *  SCRIPT_SIZE + HUD_HEIGHT, SCRIPT_SIZE, SCRIPT_SIZE };
-
-	if (destructible)
-	{
-		blocksPJ = true;
-		rect = SDL_Rect{ SCRIPT_SIZE, 0, SCRIPT_SIZE, SCRIPT_SIZE };
-	}
-	else rect = SDL_Rect{ 0, 0, SCRIPT_SIZE, SCRIPT_SIZE };
-
-	Renderer::Instance()->LoadTexture(ROLLER, PATH_IMG + "items.png");
+	WallPath = "../../res/img/items.png";
+	Wall_ID = INDESTRUCTIBLE_WALL;
+	Renderer::Instance()->LoadTexture(Wall_ID, WallPath);
+	Renderer::Instance()->GetTextureSize(Wall_ID);
+	frameWidth = textWidth / 3;
+	frameHeight = textHeight / 2;
+	Wall_Position.x = 0;
+	Wall_Position.y = 0;
+	Wall_Rect.x = frameWidth;
+	Wall_Rect.y = 0;
+	Wall_Position.h = 48;
+	Wall_Rect.h = frameHeight;
+	Wall_Position.w = 48;
+	Wall_Rect.w = frameWidth;
 }
 
 
@@ -27,24 +25,12 @@ Wall::~Wall()
 {
 }
 
-void Wall::setup()
-{
+
+void Wall::Update() {
 
 }
-
-void Wall::draw()
-{
-	Renderer::Instance()->PushSprite(ROLLER, rect, sprite);
-}
-
-void Wall::update()
-{
-	//La idea es: 
-	/*if bombContact && destructible
-
-
-	al poco
-
-	llamar destructor
-	*/
+void Wall::Draw(int i, int j) {
+	Wall_Position.x = i;
+	Wall_Position.y = j; 
+	Renderer::Instance()->PushSprite(Wall_ID, Wall_Rect, Wall_Position);
 }
