@@ -16,7 +16,7 @@ Wall::Wall()
 	Wall_Position.x = 0;
 	Wall_Position.y = 0;
 	Wall_Rect.x = 0;
-	Wall_Rect.y = frameHeight;
+	Wall_Rect.y = 0;
 	Wall_Position.h = 48;
 	Wall_Rect.h = frameHeight;
 	Wall_Position.w = 48;
@@ -32,9 +32,11 @@ void::Wall::setup() {
 
 }
 
-void Wall::draw()
+void Wall::draw(std::string wall_ID, int i, int j)
 {
-	//Renderer::Instance()->PushSprite(WALL, rect, sprite);
+	Wall_Position.y = i;
+	Wall_Position.x = j;
+	Renderer::Instance()->PushSprite(Wall_ID, Wall_Rect, Wall_Position);
 }
 
 void Wall::update()

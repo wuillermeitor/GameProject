@@ -23,6 +23,7 @@
 		int h;
 	};
 
+	enum class casillas {DESTRUCTIBLE_WALL, INDESTRUCTIBLE_WALL, EMPTY, PLAYER1, PLAYER2, BOMB};
 
 	enum class Key {UP, DOWN, LEFT, RIGHT, NONE};
 

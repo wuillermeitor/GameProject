@@ -1,6 +1,5 @@
 #pragma once
 #include "Play.h"
-#include "Renderer.h"
 
 
 Play::Play() {
@@ -8,6 +7,8 @@ Play::Play() {
 	BG_ID = BACKGROUND;
 	std::string BGPath = "../../res/img/bgGame.jpg";
 	Renderer::Instance()->LoadTexture(BG_ID, BGPath);
+
+	lvl1 = Level();
 
 	//Load player 1
 	player1 = Player();
@@ -17,8 +18,9 @@ Play::Play() {
 	Renderer::Instance()->GetTextureSize(player1.Player_ID);
 	player1.frameWidth = player1.textWidth / 3;
 	player1.frameHeight = player1.textHeight / 4;
-	player1.Player_Position.x = SCREEN_WIDTH / 2;
-	player1.Player_Position.y = SCREEN_HEIGHT / 2;
+	Vector2 tmpPosP1 = lvl1.CasillaACoordenada(0, 0);
+	player1.Player_Position.x = tmpPosP1.x;
+	player1.Player_Position.y = tmpPosP1.y;
 	player1.Player_Rect.x = 0;
 	player1.Player_Rect.y = 0;
 	player1.Player_Position.h = 48;
@@ -26,6 +28,8 @@ Play::Play() {
 	player1.Player_Position.w = 48;
 	player1.Player_Rect.w = 48;
 	player1.frameTime = 0;
+	player1.lifes = 3;
+	player1.points = 0;
 
 	//Load player 2
 	player2 = Player();
@@ -44,6 +48,8 @@ Play::Play() {
 	player2.Player_Position.w = 48;
 	player2.Player_Rect.w = 48;
 	player2.frameTime = 0;
+	player2.lifes = 3;
+	player2.points = 0;
 
 }
 
@@ -69,6 +75,7 @@ void Play::Update() {
 
 void Play::Draw() {
 	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
+	lvl1.Draw();
 	player1.Draw();
 	player2.Draw();
 	Renderer::Instance()->Render();

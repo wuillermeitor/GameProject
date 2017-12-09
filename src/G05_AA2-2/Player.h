@@ -14,6 +14,9 @@ public:
 	int cambiop = 1;
 	bool dropbomb = false;
 	int dropX, dropY;
+	int lifes;
+	bool IsPoweredUp;
+	int points;
 	Bombas bomba;
 	//Métodos
 	Player();

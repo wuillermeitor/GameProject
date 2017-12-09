@@ -13,7 +13,7 @@ public:
 	Limit();
 	~Limit();
 
-	void setup() override;
-	void draw() override;
-	void update() override;
+	void setup();
+	void draw();
+	void update();
 };

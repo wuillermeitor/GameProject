@@ -40,14 +40,9 @@ void Bombas::Update() {
 	}
 	if (timeDown <= 0) {
 		std::cout<<"destruir bomba"<<std::endl;
-		Bombas_Rect.y = 0;
 		Renderer::Instance()->PushSprite(Bombas_ID, Bombas_Rect, Bombas_Position);
 		explosion = true;
 	}
-	//if (timer + clock() >= CLOCKS_PER_SEC * 3 ) { // 3 = segundos delay de la bomba
-	//	std::cout<<"destruir bomba"<<std::endl;
-	//	Renderer::Instance()->PushSprite(Bombas_ID, Bombas_Rect, Bombas_Position);
-	//}
 }
 
 void Bombas::Draw(int i, int j) {

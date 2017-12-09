@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Types.h"
 #include "GameObject.h"
 #include "Constants.h"
 #include "GameObject.h"
@@ -21,13 +22,17 @@ public:
 	SDL_Rect GameObject_Rect, GameObject_Position;
 	GameState gamestate;
 
-	GameObject*** tablero;
+	casillas** tablero;
+	Wall wall;
 
+
+	Vector2 CoordenadaACasilla(int x, int y);
+
+	Vector2 CasillaACoordenada(int i, int j);
 
 	Level();
 	~Level();
 
-private:
 	void Setup();
 	void Draw(); 
 	void Update(); 

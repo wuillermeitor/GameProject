@@ -19,10 +19,9 @@ Player::Player(){
 	Player_Position.w = 48;
 	Player_Rect.w = frameWidth;
 	frameTime = 0;
+	lifes = 3;
+	points = 0;
 	bomba = Bombas();
-	bomba.lastTime = clock();
-	bomba.timeDown = 3.;
-	bomba.deltaTime = 0;
 }
 
 
@@ -71,6 +70,9 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 	}
 	if (!dropbomb) {
 		if (keyboardstate[DropBomb]) {
+			bomba.lastTime = clock();
+			bomba.timeDown = 3.;
+			bomba.deltaTime = 0;
 			std::cout << "drop bomb" << std::endl;
 			dropX = Player_Position.x;
 			dropY = Player_Position.y;

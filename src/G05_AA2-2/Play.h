@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Button.h"
 #include "Level.h"
+#include "Renderer.h"
 
 class Play : public Scene {
 

@@ -13,7 +13,7 @@ public:
 	Wall();
 	~Wall();
 
-	void setup() override;
-	void draw() override;
-	void update() override;
+	void setup();
+	void draw(std::string wall_ID, int i, int j);
+	void update();
 };
