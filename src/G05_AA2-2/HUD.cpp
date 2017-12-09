@@ -69,11 +69,11 @@ void HUD::Update() {
 		lastTime = clock();
 		deltaTime /= CLOCKS_PER_SEC;
 		timeDown -= deltaTime;
-		std::cout << timeDown << std::endl;
+		//std::cout << timeDown << std::endl;
 		Time.text = "Time left:  " + (std::to_string(static_cast<int>(timeDown)));
 	}
 	if (timeDown <= 0) {
-		std::cout << "FIN DEL JUEGO" << std::endl;
+		//std::cout << "FIN DEL JUEGO" << std::endl;
 		Time.text = "FIN DEL JUEGO";
 		findeljuego = true;
 	}
