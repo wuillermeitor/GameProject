@@ -43,7 +43,7 @@ void Player::EventHandler(SDL_Event evento) {
 void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb) {
 	tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x, Player_Position.y);
 	frameTime++;
-	if (FPS / frameTime <= 10) {
+	if (FPS / frameTime <= 5) {
 		frameTime = 0;
 		//player 1
 		if (Player_Rect.x == 48 * 2)
@@ -53,6 +53,7 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		Player_Rect.x += 48*cambiop;
 
 	}
+	std::cout << "el player " << Player_ID << " esta en la casilla " << tmpPosXY.x << " " << tmpPosXY.y << std::endl;
 
 	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
 	//Player Multiusos
