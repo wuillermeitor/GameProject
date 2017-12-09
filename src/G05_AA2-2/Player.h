@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include "Renderer.h"
+#include "Level.h"
 #include "Bombas.h"
 class Player
 {
@@ -18,6 +20,8 @@ public:
 	bool IsPoweredUp;
 	int points;
 	Bombas bomba;
+	Level lvl;
+
 	//Métodos
 	Player();
 	~Player();

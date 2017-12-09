@@ -6,12 +6,13 @@
 Level::Level()
 {
 	Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
-
+	casillasAncho = 13;
+	casillasAlto = 13;
 	wall = Wall();
-	tablero = new casillas*[13];
-	for (int i = 0; i < 13; i++) {
-		tablero[i] = new casillas[15];
-		for (int j = 0; j < 15; j++) {
+	tablero = new casillas*[casillasAncho];
+	for (int i = 0; i < casillasAncho; i++) {
+		tablero[i] = new casillas[casillasAlto];
+		for (int j = 0; j < casillasAlto; j++) {
 			if ((i == 1 || i == 3 || i == 5 || i == 7 || i == 9) && (j == 1 || j == 3 || j == 5 || j == 7 || j == 9 || j == 11)) {
 				tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
 			}
@@ -20,6 +21,8 @@ Level::Level()
 			}
 		}
 	}
+	limiteIJ = { 0, 0 };
+	limiteWH = { casillasAncho, casillasAlto };
 }
 
 
@@ -32,7 +35,7 @@ Vector2 Level::CoordenadaACasilla(int x, int y)
 {
 	int xCasilla = x / LADO_CASILLA;
 	int yCasilla = y / LADO_CASILLA;
-	Vector2 casilla{ xCasilla, yCasilla };
+	Vector2 casilla{ yCasilla, xCasilla };
 	return casilla;
 }
 
@@ -42,15 +45,15 @@ Vector2 Level::CasillaACoordenada(int i, int j)
 	int jCasilla;
 	iCasilla = HUD_HEIGHT + LADO_CASILLA + (i * LADO_CASILLA);
 	jCasilla = LADO_CASILLA + (j * LADO_CASILLA);
-	Vector2 coordenada{ iCasilla, jCasilla };
+	Vector2 coordenada{ jCasilla, iCasilla };
 	return coordenada;
 }
 
 void Level::Draw()
 {
 
-	for (int i = 0; i < 13; ++i) {
-		for (int j = 0; j < 15; ++j) {
+	for (int i = 0; i < casillasAncho; ++i) {
+		for (int j = 0; j < casillasAlto; ++j) {
 			if (tablero[i][j] != casillas::EMPTY) {
 				Vector2 coordenadas = CasillaACoordenada(i, j);
 				wall.draw(wall.Wall_ID, coordenadas.x, coordenadas.y);

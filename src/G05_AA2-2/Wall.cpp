@@ -34,8 +34,8 @@ void::Wall::setup() {
 
 void Wall::draw(std::string wall_ID, int i, int j)
 {
-	Wall_Position.y = i;
-	Wall_Position.x = j;
+	Wall_Position.x = i;
+	Wall_Position.y = j;
 	Renderer::Instance()->PushSprite(Wall_ID, Wall_Rect, Wall_Position);
 }
 

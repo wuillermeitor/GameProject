@@ -21,8 +21,9 @@ public:
 	SDL_Rect Wall_Rect, Wall_Position;
 	SDL_Rect GameObject_Rect, GameObject_Position;
 	GameState gamestate;
-
-	casillas** tablero;
+	int casillasAncho, casillasAlto;
+	Vector2 limiteIJ, limiteWH;
+	casillas **tablero;
 	Wall wall;
 
 
