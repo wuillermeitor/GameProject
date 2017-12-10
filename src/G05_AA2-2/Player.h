@@ -23,8 +23,18 @@ public:
 	int speed = 5;
 	int RollersBoost = 1.8;
 	Vector2 tmpPosXY;
+	Vector2 posicionBomba;
 	Bombas bomba;
 	Level lvl;
+	bool up;
+	bool up2;
+	bool down;
+	bool down2;
+	bool left;
+	bool left2;
+	bool right;
+	bool right2;
+
 
 	//Métodos
 	Player();
@@ -32,7 +42,7 @@ public:
 	void EventHandler(SDL_Event evento);
 	void Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb);
 	void Draw();
-	void SpawnBomba(int, int);
+	void SpawnBomba(int i, int j, bool up, bool up2, bool down, bool down2, bool left, bool left2, bool right, bool right2);
 
 };
 

@@ -24,7 +24,7 @@
 	};
 
 	enum class casillas : char {
-		DESTRUCTIBLE_WALL='w', INDESTRUCTIBLE_WALL = 'W', EMPTY = 'E', PLAYER1 = '1', PLAYER2 = '2', BOMB = 'B'
+		DESTRUCTIBLE_WALL='w', INDESTRUCTIBLE_WALL = 'W', EMPTY = 'E', PLAYER = 'P', BOMB = 'B'
 	};
 
 	enum class Key {UP, DOWN, LEFT, RIGHT, NONE};

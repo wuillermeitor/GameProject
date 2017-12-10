@@ -25,6 +25,7 @@ public:
 	Level lvl2;
 	HUD hud;
 
+
 	Play(std::string level);
 	~Play();
 

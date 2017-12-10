@@ -109,19 +109,41 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 	}
 	if (!dropbomb) {
 		if (keyboardstate[DropBomb]) {
+			tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x, Player_Position.y);
+			tmpPosXY = lvl.CasillaACoordenada(tmpPosXY.x, tmpPosXY.y);
 			bomba.lastTime = clock();
 			bomba.timeDown = 3.;
 			bomba.deltaTime = 0;
-			std::cout << "drop bomb" << std::endl;
-			dropX = Player_Position.x;
-			dropY = Player_Position.y;
+			std::cout << "drop bomb" << std::endl;			
+			posicionBomba = tmpPosXY;
 			dropbomb = true;
 		}
 	}
 }
 void Player::Draw() {
 	if (dropbomb) {
-		Player::SpawnBomba(dropX, dropY);
+		if (lvl.tablero[posicionBomba.x][posicionBomba.y + 1] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.y + 1] != casillas::DESTRUCTIBLE_WALL) { down = false; }
+		else { down = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.y + 2] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.y + 2] != casillas::DESTRUCTIBLE_WALL) { down2 = false; }
+		else { down2 = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.y - 1] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.y - 1] != casillas::DESTRUCTIBLE_WALL) { up = false; }
+		else { up = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.y - 2] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.y - 2] != casillas::DESTRUCTIBLE_WALL) { up2 = false; }
+		else { up2 = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.x + 1] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.x + 1] != casillas::DESTRUCTIBLE_WALL) { right = false; }
+		else { right = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.x + 2] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.x + 2] != casillas::DESTRUCTIBLE_WALL) { right2 = false; }
+		else { right2 = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.x - 1] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.x - 1] != casillas::DESTRUCTIBLE_WALL) { left = false; }
+		else { left = true; }
+		if (lvl.tablero[posicionBomba.x][posicionBomba.x - 2] != casillas::INDESTRUCTIBLE_WALL || lvl.tablero[posicionBomba.x][posicionBomba.x - 2] != casillas::DESTRUCTIBLE_WALL) { left2 = false; }
+		else { left2 = true; }
+
+
+
+		Player::SpawnBomba(posicionBomba.x, posicionBomba.y, up, up2, down, down2, left, left2, right, right2);
+		std::cout << posicionBomba.x <<" "<< posicionBomba.y  << std::endl;
+
 	}
 	if (bomba.explosion) {
 		bomba.lastTime = clock();
@@ -133,7 +155,7 @@ void Player::Draw() {
 	Renderer::Instance()->PushSprite(Player_ID, Player_Rect, Player_Position);
 }
 
-void Player::SpawnBomba(int i, int j) {
-	bomba.Draw(i, j);
+void Player::SpawnBomba(int i, int j, bool up, bool up2, bool down, bool down2, bool left, bool left2, bool right, bool right2) {
+	bomba.Draw(i,  j,  up,  up2,  down,  down2,  left,  left2,  right,  right2);
 	bomba.Update();
 }

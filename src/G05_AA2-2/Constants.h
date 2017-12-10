@@ -16,6 +16,14 @@
 const std::string BACKGROUND = "BACKGROUND";
 const std::string BOMB = "BOMB";
 const std::string EXPLOSION = "EXPLOSION";
+const std::string EXPLOSION1 = "EXPLOSION1";
+const std::string EXPLOSION2 = "EXPLOSION2";
+const std::string EXPLOSION3 = "EXPLOSION3";
+const std::string EXPLOSION4 = "EXPLOSION4";
+const std::string EXPLOSION5 = "EXPLOSION5";
+const std::string EXPLOSION6 = "EXPLOSION6";
+const std::string EXPLOSION7 = "EXPLOSION7";
+const std::string EXPLOSION8 = "EXPLOSION8";
 const std::string GAMEOBJECT = "GAMEOBJECT";
 const std::string LIMIT = "LIMIT";
 const std::string INDESTRUCTIBLE_WALL = "INDESTRUCTIBLE_WALL";
