@@ -15,7 +15,6 @@
 
 const std::string BACKGROUND = "BACKGROUND";
 const std::string BOMB = "BOMB";
-const std::string EXPLOSION = "EXPLOSION";
 const std::string GAMEOBJECT = "GAMEOBJECT";
 const std::string LIMIT = "LIMIT";
 const std::string INDESTRUCTIBLE_WALL = "INDESTRUCTIBLE_WALL";

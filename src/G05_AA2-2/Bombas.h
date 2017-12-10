@@ -10,9 +10,7 @@ class Bombas
 {
 public:
 	std::string Bombas_ID, BombasPath;
-	std::string Explosion_ID, ExplosionPath;
 	SDL_Rect Bombas_Rect, Bombas_Position;
-	SDL_Rect Explosion_Rect, Explosion_Position;
 	int frameWidth, frameHeight;
 	int textWidth = 144;
 	int textHeight = 96;
