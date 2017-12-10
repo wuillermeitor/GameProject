@@ -24,7 +24,8 @@ public:
 	int casillasAncho, casillasAlto;
 	Vector2 limiteIJ, limiteWH;
 	casillas **tablero;
-	Wall wall;
+	Wall Destructible_wall;
+	Wall Indestructible_wall;
 
 
 	Vector2 CoordenadaACasilla(int x, int y);

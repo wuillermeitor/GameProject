@@ -9,7 +9,36 @@ Level::Level()
 	Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
 	casillasAncho = 11;
 	casillasAlto = 13;
-	wall = Wall();
+	Indestructible_wall = Wall();
+	Indestructible_wall.Wall_ID = INDESTRUCTIBLE_WALL;
+	Renderer::Instance()->LoadTexture(Indestructible_wall.Wall_ID, Indestructible_wall.WallPath);
+	Renderer::Instance()->GetTextureSize(Indestructible_wall.Wall_ID);
+	Indestructible_wall.frameWidth = (Indestructible_wall.textWidth / 3);
+	Indestructible_wall.frameHeight = (Indestructible_wall.textHeight / 2);
+	Indestructible_wall.Wall_Position.x = 0;
+	Indestructible_wall.Wall_Position.y = 0;
+	Indestructible_wall.Wall_Rect.x = 0;
+	Indestructible_wall.Wall_Rect.y = 0;
+	Indestructible_wall.Wall_Position.h = LADO_CASILLA;
+	Indestructible_wall.Wall_Rect.h = Indestructible_wall.frameHeight;
+	Indestructible_wall.Wall_Position.w = LADO_CASILLA;
+	Indestructible_wall.Wall_Rect.w = Indestructible_wall.frameWidth;
+
+	Destructible_wall = Wall();
+	Destructible_wall.Wall_ID = INDESTRUCTIBLE_WALL;
+	Renderer::Instance()->LoadTexture(Destructible_wall.Wall_ID, Destructible_wall.WallPath);
+	Renderer::Instance()->GetTextureSize(Destructible_wall.Wall_ID);
+	Destructible_wall.frameWidth = (Destructible_wall.textWidth / 3);
+	Destructible_wall.frameHeight = (Destructible_wall.textHeight / 2);
+	Destructible_wall.Wall_Position.x = 0;
+	Destructible_wall.Wall_Position.y = 0;
+	Destructible_wall.Wall_Rect.x = Destructible_wall.frameWidth;
+	Destructible_wall.Wall_Rect.y = 0;
+	Destructible_wall.Wall_Position.h = LADO_CASILLA;
+	Destructible_wall.Wall_Rect.h = Destructible_wall.frameHeight;
+	Destructible_wall.Wall_Position.w = LADO_CASILLA;
+	Destructible_wall.Wall_Rect.w = Destructible_wall.frameWidth;
+
 	tablero = new casillas*[casillasAncho];
 	for (int i = 0; i < casillasAncho; i++) {
 		tablero[i] = new casillas[casillasAlto];
@@ -60,13 +89,11 @@ void Level::Draw()
 		for (int j = 0; j < casillasAlto; ++j) {
 			if (tablero[i][j] == casillas::INDESTRUCTIBLE_WALL) {
 				Vector2 coordenadas = CasillaACoordenada(i, j);
-				wall.Wall_ID = INDESTRUCTIBLE_WALL;
-				wall.draw(wall.Wall_ID, coordenadas.x, coordenadas.y);
+				Indestructible_wall.draw(Indestructible_wall.Wall_ID, coordenadas.x, coordenadas.y);
 			}
 			else if (tablero[i][j] == casillas::DESTRUCTIBLE_WALL) {
 				Vector2 coordenadas = CasillaACoordenada(i, j);
-				wall.Wall_ID = DESTRUCTIBLE_WALL;
-				wall.draw(wall.Wall_ID, coordenadas.x, coordenadas.y);
+				Destructible_wall.draw(Destructible_wall.Wall_ID, coordenadas.x, coordenadas.y);
 			}
 		}
 	}

@@ -15,7 +15,7 @@ Wall::Wall()
 	frameHeight = (textHeight / 2);
 	Wall_Position.x = 0;
 	Wall_Position.y = 0;
-	Wall_Rect.x = frameWidth;
+	Wall_Rect.x = 0;
 	Wall_Rect.y = 0;
 	Wall_Position.h = 48;
 	Wall_Rect.h = frameHeight;
