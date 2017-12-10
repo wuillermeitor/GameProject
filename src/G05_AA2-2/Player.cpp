@@ -59,19 +59,39 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 	//Player Multiusos
 	if (keyboardstate[UP] && Player_Position.y > lvl.limiteIJ.y) {
 		Player_Rect.y = 0;
-		Player_Position.y -= 5;
+		if (Rollers) {
+			Player_Position.y -= speed * RollersBoost;
+		}
+		else {
+			Player_Position.y -= speed;
+		}
 	}
 	else if (keyboardstate[DOWN] && Player_Position.y + Player_Position.h < lvl.limiteWH.y) {
 		Player_Rect.y = 48 * 2;
-		Player_Position.y += 5;
+		if (Rollers) {
+			Player_Position.y += speed * RollersBoost;
+		}
+		else {
+			Player_Position.y += speed;
+		}
 	}
 	else if (keyboardstate[LEFT] && Player_Position.x > lvl.limiteIJ.x && lvl.tablero[tmpPosXY.x][tmpPosXY.y] == casillas::EMPTY) {
 		Player_Rect.y = 48;
-		Player_Position.x -= 5;
+		if (Rollers) {
+			Player_Position.x -= speed * RollersBoost;
+		}
+		else {
+			Player_Position.x -= speed;
+		}
 	}
 	else if (keyboardstate[RIGHT] && Player_Position.x + Player_Position.w < lvl.limiteWH.x && lvl.tablero[tmpPosXY.x][tmpPosXY.y+1]==casillas::EMPTY) {
 		Player_Rect.y = 48 * 3;
-		Player_Position.x += 5;
+		if (Rollers) {
+			Player_Position.x += speed * RollersBoost;
+		}
+		else {
+			Player_Position.x += speed;
+		}
 	}
 	if (!dropbomb) {
 		if (keyboardstate[DropBomb]) {

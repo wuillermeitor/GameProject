@@ -17,8 +17,11 @@ public:
 	bool dropbomb = false;
 	int dropX, dropY;
 	int lifes;
-	bool IsPoweredUp;
 	int score;
+	bool Rollers = false;
+	bool Helmet = false;
+	int speed = 5;
+	int RollersBoost = 1.8;
 	Vector2 tmpPosXY;
 	Bombas bomba;
 	Level lvl;
