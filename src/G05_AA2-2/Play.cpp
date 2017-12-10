@@ -17,25 +17,21 @@ Play::Play(std::string level) {
 		for (int i = 0; i < lvl2.casillasAncho; i++) {
 			lvl2.tablero[i] = new casillas[lvl2.casillasAlto];
 			for (int j = 0; j < lvl2.casillasAlto; j++) {
-				if ((j == 0) && (i == 0) || (j == 1) && (i == 0) || (j == 0) && (i == 1) || (j == 12) && (i == 10) || (j == 11) && (i == 10) || (j == 12) && (i == 9)) {
+				if ((i == 0) && (j == 0) || (i == 1) && (j == 0) || (i == 0) && (j == 1) || (i == 12) && (j == 12) || (i == 11) && (j == 12) || (i == 12) && (j == 11)) {
 					lvl2.tablero[i][j] = casillas::EMPTY;
-					//std::cout << "Casillas vacias" << std::endl;
-				}
-				else if ((( j == 0) && (i == 10) || (j == 0) && (i == 9) || (j == 1) && (i == 10) || (j == 11) && (i == 0) || (j == 12) && (i == 0) || (j == 12) && (i == 1))) {
-					lvl2.tablero[i][j] = casillas::EMPTY;
-					//std::cout << "Casillas vacias" << std::endl;
-				}
-				else if ((i == 1 || i == 3 || i == 5 || i == 7 || i == 9) && (j == 1 || j == 3 || j == 5 || j == 7 || j == 9 || j == 11)) {
-					lvl2.tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
+					std::cout << "Casillas vacias" << std::endl;
 				}
 				else {
-					lvl2.auxrandomblock = (std::rand() % (2));
+					lvl2.auxrandomblock = (std::rand() % (3));
 					std::cout << lvl2.auxrandomblock << std::endl;
 					if (lvl2.auxrandomblock == 0) {
 						lvl2.tablero[i][j] = casillas::EMPTY;
 					}
 					else if (lvl2.auxrandomblock == 1) {
 						lvl2.tablero[i][j] = casillas::DESTRUCTIBLE_WALL;
+					}
+					else {
+						lvl2.tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
 					}
 				}
 			}
