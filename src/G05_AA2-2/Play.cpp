@@ -7,11 +7,10 @@ Play::Play() {
 	BG_ID = BACKGROUND;
 	std::string BGPath = "../../res/img/bgGame.jpg";
 	Renderer::Instance()->LoadTexture(BG_ID, BGPath);
-	if (play1) {
-		lvl1 = Level();
-	}
-	else if (play2){
-		lvl2 = Level();
+	lvl2 = Level();
+	lvl1 = Level();
+	
+	if (gamestate == GameState::PLAY2){
 		std::cout << "He entrado en el nivel 2" << std::endl;
 		Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
 		for (int i = 0; i < lvl2.casillasAncho; i++) {
