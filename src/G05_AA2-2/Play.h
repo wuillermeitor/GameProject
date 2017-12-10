@@ -24,8 +24,8 @@ public:
 	Level lvl1;
 	Level lvl2;
 	HUD hud;
-	GameState gamestate;
-
+	bool play1 = false;
+	bool play2 = false;
 
 	Play();
 	~Play();
