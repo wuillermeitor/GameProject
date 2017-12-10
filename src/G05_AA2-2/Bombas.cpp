@@ -27,7 +27,7 @@ Bombas::Bombas()
 	Explosion_Position.x = 0;
 	Explosion_Position.y = 0;
 	Explosion_Rect.x = 0;
-	Explosion_Rect.y = 0;
+	Explosion_Rect.y = frameHeight;
 	Explosion_Position.h = 48;
 	Explosion_Rect.h = frameHeight;
 	Explosion_Position.w = 48;
@@ -52,6 +52,7 @@ void Bombas::Update() {
 	}
 	if (timeDown <= 0) {
 		std::cout<<"destruir bomba"<<std::endl;
+		Renderer::Instance()->PushSprite(Bombas_ID, Bombas_Rect, Bombas_Position);
 		explosion = true;
 		Renderer::Instance()->PushSprite(Explosion_ID, Explosion_Rect, Explosion_Position);
 	}
@@ -61,11 +62,6 @@ void Bombas::Draw(int i, int j) {
 	Bombas_Position.x = i;
 	Bombas_Position.y = j;
 	Renderer::Instance()->PushSprite(Bombas_ID, Bombas_Rect, Bombas_Position);
-	Renderer::Instance()->PushSprite(Explosion_ID, Explosion_Rect, Explosion_Position);
-	if (timeDown <= 0) {
-		std::cout << "destruir bomba" << std::endl;
-		explosion = true;
-		Renderer::Instance()->PushSprite(Explosion_ID, Explosion_Rect, Explosion_Position);
-	}	
+	
 }
 
