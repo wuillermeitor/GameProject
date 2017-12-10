@@ -10,28 +10,32 @@ Play::Play(std::string level) {
 	if (level == "PLAY1") {
 		lvl1 = Level();
 	}
-	else if (level == "PLAY2"){
+	else if (level == "PLAY2") {
 		lvl2 = Level();
 		std::cout << "He entrado en el nivel 2" << std::endl;
 		Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
 		for (int i = 0; i < lvl2.casillasAncho; i++) {
 			lvl2.tablero[i] = new casillas[lvl2.casillasAlto];
 			for (int j = 0; j < lvl2.casillasAlto; j++) {
-				if ((i == 0) && (j == 0) || (i == 1) && (j == 0) || (i == 0) && (j == 1) || (i == 12) && (j == 12) || (i == 11) && (j == 12) || (i == 12) && (j == 11)) {
+				if ((j == 0) && (i == 0) || (j == 1) && (i == 0) || (j == 0) && (i == 1) || (j == 12) && (i == 10) || (j == 11) && (i == 10) || (j == 12) && (i == 9)) {
 					lvl2.tablero[i][j] = casillas::EMPTY;
-					std::cout << "Casillas vacias" << std::endl;
+					//std::cout << "Casillas vacias" << std::endl;
+				}
+				else if (((j == 0) && (i == 10) || (j == 0) && (i == 9) || (j == 1) && (i == 10) || (j == 11) && (i == 0) || (j == 12) && (i == 0) || (j == 12) && (i == 1))) {
+					lvl2.tablero[i][j] = casillas::EMPTY;
+					//std::cout << "Casillas vacias" << std::endl;
+				}
+				else if ((i == 1 || i == 3 || i == 5 || i == 7 || i == 9) && (j == 1 || j == 3 || j == 5 || j == 7 || j == 9 || j == 11)) {
+					lvl2.tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
 				}
 				else {
-					lvl2.auxrandomblock = (std::rand() % (3));
+					lvl2.auxrandomblock = (std::rand() % (2));
 					std::cout << lvl2.auxrandomblock << std::endl;
 					if (lvl2.auxrandomblock == 0) {
 						lvl2.tablero[i][j] = casillas::EMPTY;
 					}
 					else if (lvl2.auxrandomblock == 1) {
 						lvl2.tablero[i][j] = casillas::DESTRUCTIBLE_WALL;
-					}
-					else {
-						lvl2.tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
 					}
 				}
 			}
@@ -69,7 +73,7 @@ Play::Play(std::string level) {
 	Renderer::Instance()->GetTextureSize(player2.Player_ID);
 	player2.frameWidth = player2.textWidth / 3;
 	player2.frameHeight = player2.textHeight / 4;
-	player2.tmpPosXY = lvl1.CasillaACoordenada(0, lvl1.casillasAlto-1);
+	player2.tmpPosXY = lvl1.CasillaACoordenada(0, lvl1.casillasAlto - 1);
 	player2.Player_Position.x = player2.tmpPosXY.x;
 	player2.Player_Position.y = player2.tmpPosXY.y;
 	player2.Player_Rect.x = 0;
