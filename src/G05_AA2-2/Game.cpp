@@ -30,7 +30,7 @@ void Game::LoopGame() {
 			if (gamestate == GameState::MENU) {
 				delete currentscene;
 				gamestate = GameState::PLAY1;
-				currentscene = new Play();
+				currentscene = new Play("PLAY1");
 			}
 			/*else if (gamestate == GameState::RANKING) {
 				delete currentscene;
@@ -43,7 +43,7 @@ void Game::LoopGame() {
 			if (gamestate == GameState::MENU) {
 				delete currentscene;
 				gamestate = GameState::PLAY2;
-				currentscene = new Play();
+				currentscene = new Play("PLAY2");
 			}
 			/*else if (gamestate == GameState::MENU) {
 			delete currentscene;

@@ -2,15 +2,15 @@
 #include "Play.h"
 
 
-Play::Play() {
+Play::Play(std::string level) {
 	scenestate = SceneState::RUNNING;
 	BG_ID = BACKGROUND;
 	std::string BGPath = "../../res/img/bgGame.jpg";
 	Renderer::Instance()->LoadTexture(BG_ID, BGPath);
-	if (play1) {
+	if (level == "PLAY1") {
 		lvl1 = Level();
 	}
-	else if (play2){
+	else if (level == "PLAY2"){
 		lvl2 = Level();
 		std::cout << "He entrado en el nivel 2" << std::endl;
 		Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
