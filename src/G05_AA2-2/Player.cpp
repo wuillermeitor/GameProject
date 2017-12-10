@@ -41,7 +41,6 @@ void Player::EventHandler(SDL_Event evento) {
 }
 
 void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_Scancode RIGHT, SDL_Scancode DropBomb) {
-	tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x, Player_Position.y);
 	frameTime++;
 	if (FPS / frameTime <= 5) {
 		frameTime = 0;
@@ -53,44 +52,59 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		Player_Rect.x += 48*cambiop;
 
 	}
-	//std::cout << "el player " << Player_ID << " esta en la casilla " << tmpPosXY.x << " " << tmpPosXY.y << std::endl;
 
 	const Uint8 *keyboardstate = SDL_GetKeyboardState(NULL);
-	//Player Multiusos
+
 	if (keyboardstate[UP] && Player_Position.y > lvl.limiteIJ.y) {
-		Player_Rect.y = 0;
-		if (Rollers) {
-			Player_Position.y -= speed * RollersBoost;
-		}
-		else {
-			Player_Position.y -= speed;
+		tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x + LADO_CASILLA / 2, Player_Position.y + LADO_CASILLA*2);
+		if (lvl.tablero[tmpPosXY.x][tmpPosXY.y - 1] != casillas::INDESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x][tmpPosXY.y - 1] != casillas::DESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x][tmpPosXY.y - 1] != casillas::BOMB) {
+			lvl.tablero[tmpPosXY.x][tmpPosXY.y - 1] = casillas::PLAYER;
+			Player_Rect.y = 0;
+			if (Rollers) {
+				Player_Position.y -= speed * RollersBoost;
+			}
+			else {
+				Player_Position.y -= speed;
+			}
 		}
 	}
 	else if (keyboardstate[DOWN] && Player_Position.y + Player_Position.h < lvl.limiteWH.y) {
-		Player_Rect.y = 48 * 2;
-		if (Rollers) {
-			Player_Position.y += speed * RollersBoost;
-		}
-		else {
-			Player_Position.y += speed;
-		}
-	}
-	else if (keyboardstate[LEFT] && Player_Position.x > lvl.limiteIJ.x && lvl.tablero[tmpPosXY.x][tmpPosXY.y] == casillas::EMPTY) {
-		Player_Rect.y = 48;
-		if (Rollers) {
-			Player_Position.x -= speed * RollersBoost;
-		}
-		else {
-			Player_Position.x -= speed;
+		tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x + LADO_CASILLA / 2, Player_Position.y + LADO_CASILLA*1.3);
+		if (lvl.tablero[tmpPosXY.x][tmpPosXY.y + 1] != casillas::INDESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x][tmpPosXY.y + 1] != casillas::DESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x][tmpPosXY.y + 1] != casillas::BOMB) {
+			lvl.tablero[tmpPosXY.x][tmpPosXY.y + 1] = casillas::PLAYER;
+			Player_Rect.y = 48 * 2;
+			if (Rollers) {
+				Player_Position.y += speed * RollersBoost;
+			}
+			else {
+				Player_Position.y += speed;
+			}
 		}
 	}
-	else if (keyboardstate[RIGHT] && Player_Position.x + Player_Position.w < lvl.limiteWH.x && lvl.tablero[tmpPosXY.x][tmpPosXY.y+1]==casillas::EMPTY) {
-		Player_Rect.y = 48 * 3;
-		if (Rollers) {
-			Player_Position.x += speed * RollersBoost;
+	else if (keyboardstate[LEFT] && Player_Position.x > lvl.limiteIJ.x) {
+		tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x + Player_Position.w, Player_Position.y);
+		if (lvl.tablero[tmpPosXY.x - 1][tmpPosXY.y] != casillas::INDESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x - 1][tmpPosXY.y] != casillas::DESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x - 1][tmpPosXY.y] != casillas::BOMB) {
+			lvl.tablero[tmpPosXY.x - 1][tmpPosXY.y] = casillas::PLAYER;
+			Player_Rect.y = 48;
+			if (Rollers) {
+				Player_Position.x -= speed * RollersBoost;
+			}
+			else {
+				Player_Position.x -= speed;
+			}
 		}
-		else {
-			Player_Position.x += speed;
+	}
+	else if (keyboardstate[RIGHT] && Player_Position.x + Player_Position.w < lvl.limiteWH.x) {
+		tmpPosXY = lvl.CoordenadaACasilla(Player_Position.x, Player_Position.y);
+		if (lvl.tablero[tmpPosXY.x + 1][tmpPosXY.y] != casillas::INDESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x + 1][tmpPosXY.y] != casillas::DESTRUCTIBLE_WALL && lvl.tablero[tmpPosXY.x + 1][tmpPosXY.y] != casillas::BOMB) {
+			lvl.tablero[tmpPosXY.x + 1][tmpPosXY.y] = casillas::PLAYER;
+			Player_Rect.y = 48 * 3;
+			if (Rollers) {
+				Player_Position.x += speed * RollersBoost;
+			}
+			else {
+				Player_Position.x += speed;
+			}
 		}
 	}
 	if (!dropbomb) {

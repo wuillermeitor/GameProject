@@ -31,12 +31,8 @@ Play::Play(std::string level) {
 				else {
 					lvl2.auxrandomblock = (std::rand() % (2));
 					std::cout << lvl2.auxrandomblock << std::endl;
-					if (lvl2.auxrandomblock == 0) {
-						lvl2.tablero[i][j] = casillas::EMPTY;
-					}
-					else if (lvl2.auxrandomblock == 1) {
+					if (lvl2.auxrandomblock == 1)
 						lvl2.tablero[i][j] = casillas::DESTRUCTIBLE_WALL;
-					}
 				}
 			}
 		}
@@ -73,7 +69,7 @@ Play::Play(std::string level) {
 	Renderer::Instance()->GetTextureSize(player2.Player_ID);
 	player2.frameWidth = player2.textWidth / 3;
 	player2.frameHeight = player2.textHeight / 4;
-	player2.tmpPosXY = lvl1.CasillaACoordenada(0, lvl1.casillasAlto - 1);
+	player2.tmpPosXY = lvl1.CasillaACoordenada(lvl1.casillasAncho-1, 0);
 	player2.Player_Position.x = player2.tmpPosXY.x;
 	player2.Player_Position.y = player2.tmpPosXY.y;
 	player2.Player_Rect.x = 0;

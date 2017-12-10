@@ -7,8 +7,8 @@ Level::Level()
 {
 
 	Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
-	casillasAncho = 11;
-	casillasAlto = 13;
+	casillasAncho = 13;
+	casillasAlto = 11;
 	Indestructible_wall = Wall();
 	Indestructible_wall.Wall_ID = INDESTRUCTIBLE_WALL;
 	Renderer::Instance()->LoadTexture(Indestructible_wall.Wall_ID, Indestructible_wall.WallPath);
@@ -40,10 +40,10 @@ Level::Level()
 	Destructible_wall.Wall_Rect.w = Destructible_wall.frameWidth;
 
 	tablero = new casillas*[casillasAncho];
-	for (int i = 0; i < casillasAncho; i++) {
+	for (int i = 0; i <= casillasAncho; i++) {
 		tablero[i] = new casillas[casillasAlto];
-		for (int j = 0; j < casillasAlto; j++) {
-			if ((i == 1 || i == 3 || i == 5 || i == 7 || i == 9) && (j == 1 || j == 3 || j == 5 || j == 7 || j == 9 || j == 11)) {
+		for (int j = 0; j <= casillasAlto; j++) {
+			if ((i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11) && (j == 1 || j == 3 || j == 5 || j == 7 || j == 9)) {
 				tablero[i][j] = casillas::INDESTRUCTIBLE_WALL;
 			}
 			else {
@@ -68,7 +68,7 @@ Vector2 Level::CoordenadaACasilla(int x, int y)
 	int jCoordenada;
 	iCoordenada = (x / LADO_CASILLA) - 1;
 	jCoordenada = (y / LADO_CASILLA) - (HUD_HEIGHT / LADO_CASILLA) - 1;
-	Vector2 casilla{ jCoordenada, iCoordenada };
+	Vector2 casilla{ iCoordenada, jCoordenada };
 	return casilla;
 }
 
@@ -76,9 +76,9 @@ Vector2 Level::CasillaACoordenada(int i, int j)
 {
 	int iCasilla;
 	int jCasilla;
-	iCasilla = HUD_HEIGHT + LADO_CASILLA + (i * LADO_CASILLA);
-	jCasilla = LADO_CASILLA + (j * LADO_CASILLA);
-	Vector2 coordenada{ jCasilla, iCasilla };
+	iCasilla = (i * LADO_CASILLA) + LADO_CASILLA;
+	jCasilla = (j * LADO_CASILLA) + HUD_HEIGHT + LADO_CASILLA;
+	Vector2 coordenada{ iCasilla, jCasilla };
 	return coordenada;
 }
 
