@@ -15,6 +15,7 @@
 
 const std::string BACKGROUND = "BACKGROUND";
 const std::string BOMB = "BOMB";
+const std::string EXPLOSION = "EXPLOSION";
 const std::string GAMEOBJECT = "GAMEOBJECT";
 const std::string LIMIT = "LIMIT";
 const std::string INDESTRUCTIBLE_WALL = "INDESTRUCTIBLE_WALL";
@@ -34,5 +35,3 @@ const std::string PATH_AU = "../../res/au/";
 
 const std::string SAIYAN_80 = "SAIYAN_80";
 const std::string GAMEOVER_40 = "GAMEOVER_40";
-
-
