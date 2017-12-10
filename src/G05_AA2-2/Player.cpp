@@ -61,7 +61,7 @@ void Player::Update(SDL_Scancode UP, SDL_Scancode DOWN, SDL_Scancode LEFT, SDL_S
 		Player_Rect.y = 0;
 		Player_Position.y -= 5;
 	}
-	else if (keyboardstate[DOWN] && Player_Position.y + Player_Position.h < lvl.limiteWH.y - LADO_CASILLA*2) {
+	else if (keyboardstate[DOWN] && Player_Position.y + Player_Position.h < lvl.limiteWH.y) {
 		Player_Rect.y = 48 * 2;
 		Player_Position.y += 5;
 	}

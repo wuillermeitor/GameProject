@@ -7,7 +7,7 @@ Level::Level()
 {
 
 	Renderer::Instance()->LoadTexture(BACKGROUND, "../../res/img/bgGame.jpg");
-	casillasAncho = 13;
+	casillasAncho = 11;
 	casillasAlto = 13;
 	wall = Wall();
 	tablero = new casillas*[casillasAncho];

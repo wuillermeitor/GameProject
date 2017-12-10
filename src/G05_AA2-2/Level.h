@@ -5,7 +5,6 @@
 #include "Constants.h"
 #include "GameObject.h"
 #include "Wall.h"
-#include "Limit.h"
 #include "Menu.h"
 #include "Button.h"
 

@@ -19,9 +19,11 @@ Play::Play(std::string level) {
 			for (int j = 0; j < lvl2.casillasAlto; j++) {
 				if ((i == 0) && (j == 0) || (i == 1) && (j == 0) || (i == 0) && (j == 1) || (i == 12) && (j == 12) || (i == 11) && (j == 12) || (i == 12) && (j == 11)) {
 					lvl2.tablero[i][j] = casillas::EMPTY;
+					std::cout << "Casillas vacias" << std::endl;
 				}
 				else {
 					lvl2.auxrandomblock = (std::rand() % (3));
+					std::cout << lvl2.auxrandomblock << std::endl;
 					if (lvl2.auxrandomblock == 0) {
 						lvl2.tablero[i][j] = casillas::EMPTY;
 					}
@@ -164,6 +166,7 @@ void Play::Update() {
 void Play::Draw() {
 	Renderer::Instance()->PushImage(BG_ID, BG_Rect);
 	lvl1.Draw();
+	lvl2.Draw();
 	player1.Draw();
 	player2.Draw();
 	hud.Draw();
