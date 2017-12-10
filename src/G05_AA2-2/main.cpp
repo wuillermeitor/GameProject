@@ -6,6 +6,7 @@
 
 int main(int, char*[]) {
 	Game* GameManager = new Game();
+	srand(time(NULL));
 	GameManager->LoopGame();
 	return 0;
 }
